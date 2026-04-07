@@ -1,0 +1,1876 @@
+{
+  "categories": [
+    {
+      "mainCode": "100",
+      "mainName": "Capital",
+      "subCode": "1000",
+      "subName": "Share Capital",
+      "subSubCode": "100010",
+      "subSubName": "Issued Subscribed & Paid Up Share Capital"
+    },
+    {
+      "mainCode": "100",
+      "mainName": "Capital",
+      "subCode": "1000",
+      "subName": "Share Capital",
+      "subSubCode": "100020",
+      "subSubName": "Trust Fund"
+    },
+    {
+      "mainCode": "100",
+      "mainName": "Capital",
+      "subCode": "1000",
+      "subName": "Share Capital",
+      "subSubCode": "100030",
+      "subSubName": "Amortized Capital"
+    },
+    {
+      "mainCode": "111",
+      "mainName": "Share Premium",
+      "subCode": "1110",
+      "subName": "Share Premium",
+      "subSubCode": "111000",
+      "subSubName": "Share Premium"
+    },
+    {
+      "mainCode": "112",
+      "mainName": "Revaluation Reserves",
+      "subCode": "1120",
+      "subName": "Revaluation Reserves",
+      "subSubCode": "112010",
+      "subSubName": "Loss/profit on revaluation sub-account on revaluation reserves"
+    },
+    {
+      "mainCode": "112",
+      "mainName": "Revaluation Reserves",
+      "subCode": "1120",
+      "subName": "Revaluation Reserves",
+      "subSubCode": "112020",
+      "subSubName": "Legal reserves under general reserves"
+    },
+    {
+      "mainCode": "112",
+      "mainName": "Revaluation Reserves",
+      "subCode": "1120",
+      "subName": "Revaluation Reserves",
+      "subSubCode": "112030",
+      "subSubName": "Gain on revaluation"
+    },
+    {
+      "mainCode": "112",
+      "mainName": "Revaluation Reserves",
+      "subCode": "1120",
+      "subName": "Revaluation Reserves",
+      "subSubCode": "112040",
+      "subSubName": "Loss on revaluation"
+    },
+    {
+      "mainCode": "113",
+      "mainName": "Translation Reserves",
+      "subCode": "1130",
+      "subName": "Translation Reserves",
+      "subSubCode": "113000",
+      "subSubName": "Translation Reserves"
+    },
+    {
+      "mainCode": "114",
+      "mainName": "General Reserves",
+      "subCode": "1140",
+      "subName": "General Reserves",
+      "subSubCode": "114010",
+      "subSubName": "Legal reserves"
+    },
+    {
+      "mainCode": "114",
+      "mainName": "General Reserves",
+      "subCode": "1140",
+      "subName": "General Reserves",
+      "subSubCode": "114020",
+      "subSubName": "General Reserves"
+    },
+    {
+      "mainCode": "115",
+      "mainName": "Other Reserves",
+      "subCode": "1150",
+      "subName": "Other Reserves",
+      "subSubCode": "115000",
+      "subSubName": "Other Reserves"
+    },
+    {
+      "mainCode": "116",
+      "mainName": "Capital Grants",
+      "subCode": "1160",
+      "subName": "Capital Grants",
+      "subSubCode": "116000",
+      "subSubName": "Grants"
+    },
+    {
+      "mainCode": "120",
+      "mainName": "Retained Earnings",
+      "subCode": "1201",
+      "subName": "Retained Earnings",
+      "subSubCode": "120110",
+      "subSubName": "Retained Earnings - Report A Nouveau"
+    },
+    {
+      "mainCode": "120",
+      "mainName": "Retained Earnings",
+      "subCode": "1201",
+      "subName": "Retained Earnings",
+      "subSubCode": "120120",
+      "subSubName": "Adjustment From Previous Year"
+    },
+    {
+      "mainCode": "120",
+      "mainName": "Retained Earnings",
+      "subCode": "1201",
+      "subName": "Retained Earnings",
+      "subSubCode": "120130",
+      "subSubName": "Profit For The Year"
+    },
+    {
+      "mainCode": "120",
+      "mainName": "Retained Earnings",
+      "subCode": "1202",
+      "subName": "Ordinary Capital",
+      "subSubCode": "120200",
+      "subSubName": "Drawings"
+    },
+    {
+      "mainCode": "130",
+      "mainName": "Profit/Loss Account",
+      "subCode": "1300",
+      "subName": "Profit/Loss Account",
+      "subSubCode": "130001",
+      "subSubName": "Profit/Loss of The Year"
+    },
+    {
+      "mainCode": "131",
+      "mainName": "Investment Subsidies",
+      "subCode": "1310",
+      "subName": "Investment Subsidies",
+      "subSubCode": "131001",
+      "subSubName": "Equipment Grants"
+    },
+    {
+      "mainCode": "140",
+      "mainName": "Regulated Provisions",
+      "subCode": "1400",
+      "subName": "Regulated Provisions",
+      "subSubCode": "140000",
+      "subSubName": "Exceptional Depreciation"
+    },
+    {
+      "mainCode": "160",
+      "mainName": "Security Liability",
+      "subCode": "1600",
+      "subName": "Security Liability",
+      "subSubCode": "160000",
+      "subSubName": "Deposit And Grant Received"
+    },
+    {
+      "mainCode": "161",
+      "mainName": "Secured Liabilities",
+      "subCode": "1610",
+      "subName": "Secured Liabilities",
+      "subSubCode": "161010",
+      "subSubName": "Foreign Loans From Related Parties"
+    },
+    {
+      "mainCode": "161",
+      "mainName": "Secured Liabilities",
+      "subCode": "1610",
+      "subName": "Secured Liabilities",
+      "subSubCode": "161020",
+      "subSubName": "Froreign Loans From Unrelated Parties"
+    },
+    {
+      "mainCode": "161",
+      "mainName": "Secured Liabilities",
+      "subCode": "1610",
+      "subName": "Secured Liabilities",
+      "subSubCode": "161030",
+      "subSubName": "Local Loans"
+    },
+    {
+      "mainCode": "161",
+      "mainName": "Secured Liabilities",
+      "subCode": "1610",
+      "subName": "Secured Liabilities",
+      "subSubCode": "161040",
+      "subSubName": "Other Loans"
+    },
+    {
+      "mainCode": "161",
+      "mainName": "Secured Liabilities",
+      "subCode": "1610",
+      "subName": "Secured Liabilities",
+      "subSubCode": "161050",
+      "subSubName": "Other Securities Issued"
+    },
+    {
+      "mainCode": "162",
+      "mainName": "Unsecured Liabilities",
+      "subCode": "1620",
+      "subName": "Unsecured Liabilities",
+      "subSubCode": "162010",
+      "subSubName": "Foreign Loans From Related Parties"
+    },
+    {
+      "mainCode": "162",
+      "mainName": "Unsecured Liabilities",
+      "subCode": "1620",
+      "subName": "Unsecured Liabilities",
+      "subSubCode": "162020",
+      "subSubName": "Froreign Loans From Unrelated Parties"
+    },
+    {
+      "mainCode": "162",
+      "mainName": "Unsecured Liabilities",
+      "subCode": "1620",
+      "subName": "Unsecured Liabilities",
+      "subSubCode": "162030",
+      "subSubName": "Local Loans"
+    },
+    {
+      "mainCode": "162",
+      "mainName": "Unsecured Liabilities",
+      "subCode": "1620",
+      "subName": "Unsecured Liabilities",
+      "subSubCode": "162040",
+      "subSubName": "Other Loans"
+    },
+    {
+      "mainCode": "162",
+      "mainName": "Unsecured Liabilities",
+      "subCode": "1620",
+      "subName": "Unsecured Liabilities",
+      "subSubCode": "162050",
+      "subSubName": "Payables/Creditors For 1+ Year"
+    },
+    {
+      "mainCode": "171",
+      "mainName": "Short Term Tax Liabilities",
+      "subCode": "1710",
+      "subName": "Short Term Tax Liabilities",
+      "subSubCode": "171010",
+      "subSubName": "Tax Liabilities"
+    },
+    {
+      "mainCode": "171",
+      "mainName": "Short Term Tax Liabilities",
+      "subCode": "1710",
+      "subName": "Short Term Tax Liabilities",
+      "subSubCode": "171020",
+      "subSubName": "Other Short Term Tax & Equivalent Liabilities"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172010",
+      "subSubName": "Trade Payables/Creditors"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172020",
+      "subSubName": "Liabilities For Leased Assets"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172030",
+      "subSubName": "Accrued Interests"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172040",
+      "subSubName": "Bank Overdrafts"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172050",
+      "subSubName": "Dividends Payables"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172060",
+      "subSubName": "Other Current Liabilities"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172070",
+      "subSubName": "CIT/PIT (Corporate Income Tax)"
+    },
+    {
+      "mainCode": "172",
+      "mainName": "Current Liabilities",
+      "subCode": "1720",
+      "subName": "Current Liabilities",
+      "subSubCode": "172080",
+      "subSubName": "PIT(Personal Income Tax)"
+    },
+    {
+      "mainCode": "173",
+      "mainName": "Provisions",
+      "subCode": "1730",
+      "subName": "Provisions",
+      "subSubCode": "173001",
+      "subSubName": "Provisions On Income Tax"
+    },
+    {
+      "mainCode": "173",
+      "mainName": "Provisions",
+      "subCode": "1730",
+      "subName": "Provisions",
+      "subSubCode": "173002",
+      "subSubName": "Provisions On Bad Debts"
+    },
+    {
+      "mainCode": "173",
+      "mainName": "Provisions",
+      "subCode": "1730",
+      "subName": "Provisions",
+      "subSubCode": "173003",
+      "subSubName": "Other Provisions"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200001",
+      "subSubName": "Land"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200002",
+      "subSubName": "Building"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200003",
+      "subSubName": "Motor Vehicles"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200004",
+      "subSubName": "Machinery"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200005",
+      "subSubName": "Computer"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200006",
+      "subSubName": "Leaseholds rights"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200007",
+      "subSubName": "Furniture And Fittings"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200008",
+      "subSubName": "Other Assets"
+    },
+    {
+      "mainCode": "200",
+      "mainName": "Property, Plant And Equipment(Ppe)",
+      "subCode": "2000",
+      "subName": "Tangible Assets",
+      "subSubCode": "200009",
+      "subSubName": "Freehold Property"
+    },
+    {
+      "mainCode": "210",
+      "mainName": "Intangible Assets",
+      "subCode": "2100",
+      "subName": "Intangible Assets",
+      "subSubCode": "210001",
+      "subSubName": "Trademarks"
+    },
+    {
+      "mainCode": "210",
+      "mainName": "Intangible Assets",
+      "subCode": "2100",
+      "subName": "Intangible Assets",
+      "subSubCode": "210002",
+      "subSubName": "Software"
+    },
+    {
+      "mainCode": "210",
+      "mainName": "Intangible Assets",
+      "subCode": "2100",
+      "subName": "Intangible Assets",
+      "subSubCode": "210003",
+      "subSubName": "Licenses"
+    },
+    {
+      "mainCode": "210",
+      "mainName": "Intangible Assets",
+      "subCode": "2100",
+      "subName": "Intangible Assets",
+      "subSubCode": "210004",
+      "subSubName": "Goodwill"
+    },
+    {
+      "mainCode": "210",
+      "mainName": "Intangible Assets",
+      "subCode": "2100",
+      "subName": "Intangible Assets",
+      "subSubCode": "210005",
+      "subSubName": "Impairement loss under"
+    },
+    {
+      "mainCode": "210",
+      "mainName": "Intangible Assets",
+      "subCode": "2100",
+      "subName": "Intangible Assets",
+      "subSubCode": "210006",
+      "subSubName": "Patents right"
+    },
+    {
+      "mainCode": "230",
+      "mainName": "Investments",
+      "subCode": "2300",
+      "subName": "Investments",
+      "subSubCode": "230001",
+      "subSubName": "Government Securities"
+    },
+    {
+      "mainCode": "230",
+      "mainName": "Investments",
+      "subCode": "2300",
+      "subName": "Investments",
+      "subSubCode": "230002",
+      "subSubName": "Bonds"
+    },
+    {
+      "mainCode": "230",
+      "mainName": "Investments",
+      "subCode": "2300",
+      "subName": "Investments",
+      "subSubCode": "230003",
+      "subSubName": "Debentures"
+    },
+    {
+      "mainCode": "230",
+      "mainName": "Investments",
+      "subCode": "2300",
+      "subName": "Investments",
+      "subSubCode": "230004",
+      "subSubName": "Fixed Deposits"
+    },
+    {
+      "mainCode": "230",
+      "mainName": "Investments",
+      "subCode": "2300",
+      "subName": "Investments",
+      "subSubCode": "230005",
+      "subSubName": "Other Investments"
+    },
+    {
+      "mainCode": "260",
+      "mainName": "Investment Securities",
+      "subCode": "2600",
+      "subName": "Investment Securities",
+      "subSubCode": "260001",
+      "subSubName": "Actions / In Stock Exachange"
+    },
+    {
+      "mainCode": "260",
+      "mainName": "Investment Securities",
+      "subCode": "2600",
+      "subName": "Investment Securities",
+      "subSubCode": "260002",
+      "subSubName": "Obligations"
+    },
+    {
+      "mainCode": "270",
+      "mainName": "Financial Fixed Asset",
+      "subCode": "2700",
+      "subName": "Financial Fixed Asset",
+      "subSubCode": "270001",
+      "subSubName": "Deposits"
+    },
+    {
+      "mainCode": "270",
+      "mainName": "Financial Fixed Asset",
+      "subCode": "2700",
+      "subName": "Financial Fixed Asset",
+      "subSubCode": "270002",
+      "subSubName": "Bonds"
+    },
+    {
+      "mainCode": "270",
+      "mainName": "Financial Fixed Asset",
+      "subCode": "2700",
+      "subName": "Financial Fixed Asset",
+      "subSubCode": "270003",
+      "subSubName": "Seculities"
+    },
+    {
+      "mainCode": "280",
+      "mainName": "Accumulated Depreciations",
+      "subCode": "2801",
+      "subName": "Accumulated Dep. Building",
+      "subSubCode": "280101",
+      "subSubName": "Acc. Builidings-Batiments"
+    },
+    {
+      "mainCode": "280",
+      "mainName": "Accumulated Depreciations",
+      "subCode": "2802",
+      "subName": "Accumulated Dep. Furniture",
+      "subSubCode": "280201",
+      "subSubName": "Acc. Office Furniture & Fittings"
+    },
+    {
+      "mainCode": "280",
+      "mainName": "Accumulated Depreciations",
+      "subCode": "2803",
+      "subName": "Accumulated Dep. M.Vehicles",
+      "subSubCode": "280301",
+      "subSubName": "Acc. Motor Vehicles-  Mat\u00e9riels Roulants"
+    },
+    {
+      "mainCode": "280",
+      "mainName": "Accumulated Depreciations",
+      "subCode": "2804",
+      "subName": "Accumulated Dep. IT Equipmt",
+      "subSubCode": "280401",
+      "subSubName": "Acc. Computers And Other It Equipments"
+    },
+    {
+      "mainCode": "280",
+      "mainName": "Accumulated Depreciations",
+      "subCode": "2805",
+      "subName": "Accumulated Dep. Softwares",
+      "subSubCode": "280501",
+      "subSubName": "Acc. Softwares"
+    },
+    {
+      "mainCode": "280",
+      "mainName": "Accumulated Depreciations",
+      "subCode": "2806",
+      "subName": "Accumulated Dep. Goodwill",
+      "subSubCode": "280601",
+      "subSubName": "Impairement loss under Goodwill"
+    },
+    {
+      "mainCode": "300",
+      "mainName": "Stocks",
+      "subCode": "3001",
+      "subName": "Inventory",
+      "subSubCode": "300101",
+      "subSubName": "Consumables  Materials"
+    },
+    {
+      "mainCode": "300",
+      "mainName": "Stocks",
+      "subCode": "3001",
+      "subName": "Inventory",
+      "subSubCode": "300102",
+      "subSubName": "Raw Materials other than Stock"
+    },
+    {
+      "mainCode": "300",
+      "mainName": "Stocks",
+      "subCode": "3001",
+      "subName": "Inventory",
+      "subSubCode": "300103",
+      "subSubName": "Work In Progress"
+    },
+    {
+      "mainCode": "300",
+      "mainName": "Stocks",
+      "subCode": "3002",
+      "subName": "Stock",
+      "subSubCode": "300201",
+      "subSubName": "Finished Goods"
+    },
+    {
+      "mainCode": "300",
+      "mainName": "Stocks",
+      "subCode": "3002",
+      "subName": "Stock",
+      "subSubCode": "300202",
+      "subSubName": "Packaging"
+    },
+    {
+      "mainCode": "300",
+      "mainName": "Stocks",
+      "subCode": "3002",
+      "subName": "Stock",
+      "subSubCode": "300203",
+      "subSubName": "Stocks at the End of the period"
+    },
+    {
+      "mainCode": "401",
+      "mainName": "Accounts Payables",
+      "subCode": "4011",
+      "subName": "Accounts Payables Local",
+      "subSubCode": "4011001",
+      "subSubName": "Payables's Local"
+    },
+    {
+      "mainCode": "401",
+      "mainName": "Accounts Payables",
+      "subCode": "4011",
+      "subName": "Accounts Payables Local",
+      "subSubCode": "4011001",
+      "subSubName": "Payables's Local"
+    },
+    {
+      "mainCode": "401",
+      "mainName": "Accounts Payables",
+      "subCode": "4012",
+      "subName": "Accounts Payables Local",
+      "subSubCode": "4012001",
+      "subSubName": "Suppliers All"
+    },
+    {
+      "mainCode": "401",
+      "mainName": "Accounts Payables",
+      "subCode": "4013",
+      "subName": "Accounts Payables Foreign",
+      "subSubCode": "4013001",
+      "subSubName": "Payables's Foreign"
+    },
+    {
+      "mainCode": "401",
+      "mainName": "Accounts Payables",
+      "subCode": "4014",
+      "subName": "Accounts Payables-Others",
+      "subSubCode": "4014001",
+      "subSubName": "Payables-Others"
+    },
+    {
+      "mainCode": "410",
+      "mainName": "Trade Receivables",
+      "subCode": "4101",
+      "subName": "Receivables Form Local",
+      "subSubCode": "4101001",
+      "subSubName": "Trade Receivables as local"
+    },
+    {
+      "mainCode": "410",
+      "mainName": "Trade Receivables",
+      "subCode": "4102",
+      "subName": "Receivables Form Local",
+      "subSubCode": "4102001",
+      "subSubName": "Clients/Customers"
+    },
+    {
+      "mainCode": "410",
+      "mainName": "Trade Receivables",
+      "subCode": "4103",
+      "subName": "Receivables from Foreign",
+      "subSubCode": "4103001",
+      "subSubName": "Trade Receivables as Imports"
+    },
+    {
+      "mainCode": "410",
+      "mainName": "Trade Receivables",
+      "subCode": "4104",
+      "subName": "Receivables from Others",
+      "subSubCode": "4104001",
+      "subSubName": "Trade Receivables Others"
+    },
+    {
+      "mainCode": "420",
+      "mainName": "Payroll Liabilities",
+      "subCode": "4201",
+      "subName": "Payroll Liabilities",
+      "subSubCode": "4201101",
+      "subSubName": "Net Salary Permanent Employees"
+    },
+    {
+      "mainCode": "420",
+      "mainName": "Payroll Liabilities",
+      "subCode": "4201",
+      "subName": "Payroll Liabilities",
+      "subSubCode": "4201201",
+      "subSubName": "Net Salary Casual Labors"
+    },
+    {
+      "mainCode": "420",
+      "mainName": "Payroll Liabilities",
+      "subCode": "4201",
+      "subName": "Payroll Liabilities",
+      "subSubCode": "4201301",
+      "subSubName": "Net Salary Seconds Employees"
+    },
+    {
+      "mainCode": "420",
+      "mainName": "Payroll Liabilities",
+      "subCode": "4201",
+      "subName": "Payroll Liabilities",
+      "subSubCode": "4201401",
+      "subSubName": "Salary Advance"
+    },
+    {
+      "mainCode": "420",
+      "mainName": "Payroll Liabilities",
+      "subCode": "4201",
+      "subName": "Payroll Liabilities",
+      "subSubCode": "4201501",
+      "subSubName": "RSSB-Maternity Leave"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430101",
+      "subSubName": "Value Added Taxes (VAT)"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430102",
+      "subSubName": "Pay As You Earn (PAYE)"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430103",
+      "subSubName": "Trading Licences"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430104",
+      "subSubName": "Whithholding Taxes (15%)"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430105",
+      "subSubName": "Whithholding Taxes On Import (5%)"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430106",
+      "subSubName": "Whithholding Taxes On Public Tender (3%)"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430107",
+      "subSubName": "Corporate Income Taxes (CIT)"
+    },
+    {
+      "mainCode": "430",
+      "mainName": "RRA Liabilities",
+      "subCode": "4301",
+      "subName": "RRA Tax Liabilities",
+      "subSubCode": "430108",
+      "subSubName": "Income Tax Quarterly Prepayment (IQP)"
+    },
+    {
+      "mainCode": "431",
+      "mainName": "RSSB Liabilities",
+      "subCode": "4311",
+      "subName": "RSSB Contributions",
+      "subSubCode": "431101",
+      "subSubName": "RSSB-Pension"
+    },
+    {
+      "mainCode": "431",
+      "mainName": "RSSB Liabilities",
+      "subCode": "4311",
+      "subName": "RSSB Contributions",
+      "subSubCode": "431102",
+      "subSubName": "RSSB-Maternity"
+    },
+    {
+      "mainCode": "431",
+      "mainName": "RSSB Liabilities",
+      "subCode": "4311",
+      "subName": "RSSB Contributions",
+      "subSubCode": "431103",
+      "subSubName": "RSSB-CBHI"
+    },
+    {
+      "mainCode": "431",
+      "mainName": "RSSB Liabilities",
+      "subCode": "4311",
+      "subName": "RSSB Contributions",
+      "subSubCode": "431104",
+      "subSubName": "RSSB-Medical Insurance"
+    },
+    {
+      "mainCode": "440",
+      "mainName": "Stockholders",
+      "subCode": "4401",
+      "subName": "Owners Equity",
+      "subSubCode": "440101",
+      "subSubName": "Issued Shares"
+    },
+    {
+      "mainCode": "440",
+      "mainName": "Stockholders",
+      "subCode": "4402",
+      "subName": "Stockholders",
+      "subSubCode": "440201",
+      "subSubName": "Share-Capital"
+    },
+    {
+      "mainCode": "451",
+      "mainName": "Accrued Revenues",
+      "subCode": "4510",
+      "subName": "Accrued Revenues",
+      "subSubCode": "451001",
+      "subSubName": "Accrued Interest"
+    },
+    {
+      "mainCode": "451",
+      "mainName": "Accrued Revenues",
+      "subCode": "4510",
+      "subName": "Accrued Revenues",
+      "subSubCode": "451002",
+      "subSubName": "Accrued Income"
+    },
+    {
+      "mainCode": "452",
+      "mainName": "Accrued Expenses",
+      "subCode": "4520",
+      "subName": "Accrued Expenses",
+      "subSubCode": "452001",
+      "subSubName": "Charges Payables"
+    },
+    {
+      "mainCode": "460",
+      "mainName": "Other Receivables",
+      "subCode": "4601",
+      "subName": "Other Receivables",
+      "subSubCode": "460101",
+      "subSubName": "Receivables From Fixed Assets"
+    },
+    {
+      "mainCode": "460",
+      "mainName": "Other Receivables",
+      "subCode": "4601",
+      "subName": "Other Receivables",
+      "subSubCode": "460101",
+      "subSubName": "Prepaid Expenses"
+    },
+    {
+      "mainCode": "461",
+      "mainName": "Other Payables",
+      "subCode": "4610",
+      "subName": "Other Payables",
+      "subSubCode": "461001",
+      "subSubName": "Prepaid Income"
+    },
+    {
+      "mainCode": "470",
+      "mainName": "Provisions",
+      "subCode": "4701",
+      "subName": "Provisions",
+      "subSubCode": "470101",
+      "subSubName": "Provisions For Bad Debts"
+    },
+    {
+      "mainCode": "470",
+      "mainName": "Provisions Expenses",
+      "subCode": "4702",
+      "subName": "Provisions Expenses",
+      "subSubCode": "470201",
+      "subSubName": "Acrrued Expenses"
+    },
+    {
+      "mainCode": "480",
+      "mainName": "Other Provisions",
+      "subCode": "4801",
+      "subName": "Provisions",
+      "subSubCode": "480101",
+      "subSubName": "Deferred Revenues"
+    },
+    {
+      "mainCode": "480",
+      "mainName": "Other Provisions",
+      "subCode": "4801",
+      "subName": "Provisions",
+      "subSubCode": "480102",
+      "subSubName": "Other Provisions"
+    },
+    {
+      "mainCode": "490",
+      "mainName": "Suspense Account",
+      "subCode": "4900",
+      "subName": "Suspense Account",
+      "subSubCode": "490010",
+      "subSubName": "Suspense Account"
+    },
+    {
+      "mainCode": "550",
+      "mainName": "Accruals And  Prepayment",
+      "subCode": "5501",
+      "subName": "Accruals And  Prepayment",
+      "subSubCode": "550101",
+      "subSubName": "Foreign Loans To Related Parties"
+    },
+    {
+      "mainCode": "550",
+      "mainName": "Accruals And  Prepayment",
+      "subCode": "5501",
+      "subName": "Accruals And  Prepayment",
+      "subSubCode": "550102",
+      "subSubName": "Foreign Loans To Unrelated Parties"
+    },
+    {
+      "mainCode": "550",
+      "mainName": "Accruals And  Prepayment",
+      "subCode": "5501",
+      "subName": "Accruals And  Prepayment",
+      "subSubCode": "550103",
+      "subSubName": "Local Loans"
+    },
+    {
+      "mainCode": "550",
+      "mainName": "Accruals And  Prepayment",
+      "subCode": "5501",
+      "subName": "Accruals And  Prepayment",
+      "subSubCode": "550104",
+      "subSubName": "Loans And Advances To Staff"
+    },
+    {
+      "mainCode": "550",
+      "mainName": "Accruals And  Prepayment",
+      "subCode": "5501",
+      "subName": "Accruals And  Prepayment",
+      "subSubCode": "550105",
+      "subSubName": "Deposits (Other Than Fixed Deposits)"
+    },
+    {
+      "mainCode": "550",
+      "mainName": "Accruals And  Prepayment",
+      "subCode": "5501",
+      "subName": "Accruals And  Prepayment",
+      "subSubCode": "550106",
+      "subSubName": "Loans And Advances To Others"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560101",
+      "subSubName": "Banks"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560102",
+      "subSubName": "B.K (Bank of Kigali)"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560103",
+      "subSubName": "Equity Bank"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560104",
+      "subSubName": "I & M Bank"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560105",
+      "subSubName": "B.P.R Plc"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560106",
+      "subSubName": "Bank of Africa"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560106",
+      "subSubName": "Unguka Bank"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560107",
+      "subSubName": "Ecobank"
+    },
+    {
+      "mainCode": "560",
+      "mainName": "Banks",
+      "subCode": "5601",
+      "subName": "Banks",
+      "subSubCode": "560108",
+      "subSubName": "GT Bank"
+    },
+    {
+      "mainCode": "570",
+      "mainName": "Cash In Hand",
+      "subCode": "5701",
+      "subName": "Cash In Hand",
+      "subSubCode": "570101",
+      "subSubName": "Petty Cash Rwf"
+    },
+    {
+      "mainCode": "570",
+      "mainName": "Cash In Hand",
+      "subCode": "5702",
+      "subName": "Cash In Hand",
+      "subSubCode": "570201",
+      "subSubName": "Petty Cash USD"
+    },
+    {
+      "mainCode": "590",
+      "mainName": "Cash/Bank in Transit",
+      "subCode": "5901",
+      "subName": "Suspense Account",
+      "subSubCode": "590101",
+      "subSubName": "Suspense Asset Accounts"
+    },
+    {
+      "mainCode": "600",
+      "mainName": "Cost of Goods Sold",
+      "subCode": "6001",
+      "subName": "Cost of Goods Sold",
+      "subSubCode": "600101",
+      "subSubName": "Purchases"
+    },
+    {
+      "mainCode": "600",
+      "mainName": "Cost of Goods Sold",
+      "subCode": "6001",
+      "subName": "Cost Of Goods Sold",
+      "subSubCode": "600102",
+      "subSubName": "Consumable Materials"
+    },
+    {
+      "mainCode": "600",
+      "mainName": "Cost of Goods Sold",
+      "subCode": "6001",
+      "subName": "Cost Of Goods Sold",
+      "subSubCode": "600103",
+      "subSubName": "Consumable Supplies"
+    },
+    {
+      "mainCode": "600",
+      "mainName": "Cost of Goods Sold",
+      "subCode": "6001",
+      "subName": "Cost Of Goods Sold",
+      "subSubCode": "600104",
+      "subSubName": "Packaging"
+    },
+    {
+      "mainCode": "600",
+      "mainName": "Cost of Goods Sold",
+      "subCode": "6001",
+      "subName": "Cost Of Goods Sold",
+      "subSubCode": "600105",
+      "subSubName": "Return Outward"
+    },
+    {
+      "mainCode": "600",
+      "mainName": "Cost of Goods Sold",
+      "subCode": "6002",
+      "subName": "Discount On Sales",
+      "subSubCode": "600201",
+      "subSubName": "Discount Allowed"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610101",
+      "subSubName": "Loss On Disposal Of An Asset"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610102",
+      "subSubName": "Management Fees"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610103",
+      "subSubName": "Research Expenses"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610104",
+      "subSubName": "Decentralised Taxes/Local Gvt Taxes"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610105",
+      "subSubName": "Royalties"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610106",
+      "subSubName": "Licence Fees"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610107",
+      "subSubName": "Other Administration Expenses"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610108",
+      "subSubName": "House Rent"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610109",
+      "subSubName": "Equipment Rent"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610110",
+      "subSubName": "Administrative Transport"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610111",
+      "subSubName": "Travels"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610112",
+      "subSubName": "Mission"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610113",
+      "subSubName": "Other Transport Expense"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610114",
+      "subSubName": "Housing Benefits"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610115",
+      "subSubName": "Direct Tax"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610116",
+      "subSubName": "Indirect Tax"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6101",
+      "subName": "Administrative Expenses",
+      "subSubCode": "610117",
+      "subSubName": "Meal and restauration"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6102",
+      "subName": "Others-Administrative Expenses",
+      "subSubCode": "610201",
+      "subSubName": "Electricity"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6102",
+      "subName": "Others-Administrative Expenses",
+      "subSubCode": "610202",
+      "subSubName": "Water-WASAC"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6102",
+      "subName": "Others-Administrative Expenses",
+      "subSubCode": "610203",
+      "subSubName": "Fuel"
+    },
+    {
+      "mainCode": "610",
+      "mainName": "Administrative Expenses",
+      "subCode": "6102",
+      "subName": "Others-Administrative Expenses",
+      "subSubCode": "610204",
+      "subSubName": "Other Utilities"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620001",
+      "subSubName": "Rent"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620002",
+      "subSubName": "Consumption From Store"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620003",
+      "subSubName": "Entertainment"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620004",
+      "subSubName": "Communication"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620005",
+      "subSubName": "Consultancy Expense"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620006",
+      "subSubName": "Legal Expense"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620007",
+      "subSubName": "Audit Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620008",
+      "subSubName": "Advertisemnt"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620009",
+      "subSubName": "Hotel Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620010",
+      "subSubName": "Repaires For Building"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620011",
+      "subSubName": "Repaires For Machinery"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620012",
+      "subSubName": "Sales Promotions Other Than Advertisement"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620013",
+      "subSubName": "Pre Operating Expenses Or Start Up Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620014",
+      "subSubName": "Training Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620015",
+      "subSubName": "Printing  Stationary"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620016",
+      "subSubName": "Cleaning Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620017",
+      "subSubName": "Security Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620018",
+      "subSubName": "Whithholding Taxes Expenses"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620019",
+      "subSubName": "Travel \u00a0Expense Including Foreigne Travels"
+    },
+    {
+      "mainCode": "620",
+      "mainName": "Operating Expenses",
+      "subCode": "6200",
+      "subName": "Operating Expenses",
+      "subSubCode": "620020",
+      "subSubName": "Transportations Fees"
+    },
+    {
+      "mainCode": "640",
+      "mainName": "Others Expenses",
+      "subCode": "6401",
+      "subName": "Others Expenses",
+      "subSubCode": "640101",
+      "subSubName": "Bad Debts Writtenoff"
+    },
+    {
+      "mainCode": "640",
+      "mainName": "Others Expenses",
+      "subCode": "6401",
+      "subName": "Others Expenses",
+      "subSubCode": "640102",
+      "subSubName": "Provision For Bad And Doubtful Debts"
+    },
+    {
+      "mainCode": "640",
+      "mainName": "Others Expenses",
+      "subCode": "6401",
+      "subName": "Others Expenses",
+      "subSubCode": "640103",
+      "subSubName": "Donations"
+    },
+    {
+      "mainCode": "640",
+      "mainName": "Others Expenses",
+      "subCode": "6401",
+      "subName": "Others Expenses",
+      "subSubCode": "640104",
+      "subSubName": "Other Operating Expenses"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650101",
+      "subSubName": "Staff Salaries-Gross Salary"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650102",
+      "subSubName": "Leave Pay"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650103",
+      "subSubName": "Bonus"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650104",
+      "subSubName": "Reimbursement Of Medical Expenses"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650105",
+      "subSubName": "Employer Contribution to RSSB"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650106",
+      "subSubName": "Contribution To Any Other Fund"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650107",
+      "subSubName": "Staff Life Insurance Contribution"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650108",
+      "subSubName": "Staff Welfare Expenses( Refreshments And Restaurant)"
+    },
+    {
+      "mainCode": "650",
+      "mainName": "Payroll Expenses",
+      "subCode": "6501",
+      "subName": "Employment Expenses",
+      "subSubCode": "650109",
+      "subSubName": "Other Staff Costs"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660101",
+      "subSubName": "Interest Expense"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660102",
+      "subSubName": "Bank Charges"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660103",
+      "subSubName": "Insurance Cost"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660104",
+      "subSubName": "Commitment Fees"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660105",
+      "subSubName": "Commissions Paid"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660106",
+      "subSubName": "Realised Exchange Loss"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660107",
+      "subSubName": "Unrealised Exchange Loss"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660108",
+      "subSubName": "Exchange Losses"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660109",
+      "subSubName": "Interest On Bonds"
+    },
+    {
+      "mainCode": "660",
+      "mainName": "Financial Expenses",
+      "subCode": "6601",
+      "subName": "Financial Expenses",
+      "subSubCode": "660110",
+      "subSubName": "MOMO/Phone Charges"
+    },
+    {
+      "mainCode": "670",
+      "mainName": "Other Financial Expenses",
+      "subCode": "6701",
+      "subName": "Other Financial Expenses",
+      "subSubCode": "670101",
+      "subSubName": "Dividends"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6801",
+      "subName": "Deprecition-Intangible Assets",
+      "subSubCode": "680101",
+      "subSubName": "Depreciation On Softwares"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6802",
+      "subName": "Deprecition-Tangible Assets",
+      "subSubCode": "680201",
+      "subSubName": "Depreciation On Builidings"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6802",
+      "subName": "Deprecition-Tangible Assets",
+      "subSubCode": "680202",
+      "subSubName": "Depreciation On Machinery &Factory Equipments"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6802",
+      "subName": "Deprecition-Tangible Assets",
+      "subSubCode": "680203",
+      "subSubName": "Depreciation On Office Furniture & Fittings"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6802",
+      "subName": "Deprecition-Tangible Assets",
+      "subSubCode": "680204",
+      "subSubName": "Depreciation On Motor Vehicles"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6802",
+      "subName": "Deprecition-Tangible Assets",
+      "subSubCode": "680205",
+      "subSubName": "Depreciation On Computers And It Equipments"
+    },
+    {
+      "mainCode": "680",
+      "mainName": "Depreciation Expenses",
+      "subCode": "6802",
+      "subName": "Deprecition-Tangible Assets",
+      "subSubCode": "680206",
+      "subSubName": "Depreciation On Others"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7001",
+      "subName": "Sales",
+      "subSubCode": "700101",
+      "subSubName": "Revenue From General Trading Manufactured Goods"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7001",
+      "subName": "Sales",
+      "subSubCode": "700102",
+      "subSubName": "Revenue From Services"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7002",
+      "subName": "Revenues",
+      "subSubCode": "700201",
+      "subSubName": "Farming  and Livestock Income"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7002",
+      "subName": "Revenues",
+      "subSubCode": "700202",
+      "subSubName": "Natural Resource Revenues"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7002",
+      "subName": "Revenues",
+      "subSubCode": "700203",
+      "subSubName": "Revenue From Residual Products"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7002",
+      "subName": "Revenues",
+      "subSubCode": "700204",
+      "subSubName": "Return Inward"
+    },
+    {
+      "mainCode": "700",
+      "mainName": "Revenues",
+      "subCode": "7003",
+      "subName": "Rental Revenues",
+      "subSubCode": "700301",
+      "subSubName": "Rental Income"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706001",
+      "subSubName": "Interest Income"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706002",
+      "subSubName": "Realised Exchange Gain"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706003",
+      "subSubName": "Unrealised Exchange Gain"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706004",
+      "subSubName": "Provision On Bad And Doubtiful Debts"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706005",
+      "subSubName": "Royalty Income"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706006",
+      "subSubName": "Insurance Compensation"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706007",
+      "subSubName": "Income From Financial Institutions"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7060",
+      "subName": "Income",
+      "subSubCode": "706008",
+      "subSubName": "Foreign Exchange Gain"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7061",
+      "subName": "Others Income",
+      "subSubCode": "706101",
+      "subSubName": "Dividends"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7061",
+      "subName": "Others Income",
+      "subSubCode": "706102",
+      "subSubName": "Profit From Disposal Of An Asset"
+    },
+    {
+      "mainCode": "706",
+      "mainName": "Income",
+      "subCode": "7061",
+      "subName": "Others Income",
+      "subSubCode": "706103",
+      "subSubName": "Gifts"
+    }
+  ]
+}
