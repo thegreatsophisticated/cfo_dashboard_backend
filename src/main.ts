@@ -14,13 +14,8 @@ async function bootstrap() {
   app.enableCors({
     origin:
       process.env.NODE_ENV === 'production'
-        ? [
-            'http://cfo.irebegrp.com',
-            'https://cfo.irebegrp.com',
-            'http://yourdomain.com',
-            'https://yourdomain.com',
-          ]
-        : true, // allow all origins in development
+        ? ['http://cfo.irebegroup.com', 'https://cfo.irebegroup.com']
+        : true,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
