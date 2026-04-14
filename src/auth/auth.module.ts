@@ -1,57 +1,33 @@
-// import { Module, forwardRef } from '@nestjs/common';
-// import { AuthService } from './auth.service';
-// import { AuthController } from './auth.controller';
-// import { UsersModule } from 'src/users/users.module';
-// import { HashingProvider } from './provider/hashing.provider';
-// import { BcryptProvider } from './provider/bcrypt.provider';
-// import { ConfigModule, ConfigService } from '@nestjs/config';
-// import authConfig from './config/auth.config';
-// import { JwtModule } from '@nestjs/jwt';
-
-// @Module({
-//   controllers: [AuthController],
-//   providers: [AuthService, {
-//     provide: HashingProvider,
-//     useClass: BcryptProvider,
-//   }],
-//   imports: [
-//     forwardRef(() => UsersModule),
-// ConfigModule.forFeature(authConfig),
-// // JwtModule.registerAsync(authConfig.asProvider())
-//   JwtModule.registerAsync({
-//       imports: [ConfigModule],
-//       useFactory: (configService: ConfigService ) => ({
-//         secret: configService.get('auth.jwt.secret'),
-//         signOptions: {
-//           expiresIn: configService.get('auth.jwt.accessTokenExpiresIn'),
-//           audience: configService.get('auth.jwt.audience'),
-//           issuer: configService.get('auth.jwt.issuer'),
-//         },
-//       }),
-//       inject: [ConfigService],
-//     }),
-
-//   ],
-//   exports: [AuthService, HashingProvider],
-// })
-// export class AuthModule {}
-
-// src/auth/auth.module.ts
-import { Module, forwardRef } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { UsersModule } from 'src/users/users.module';
-import { HashingProvider } from './provider/hashing.provider';
-import { BcryptProvider } from './provider/bcrypt.provider';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import authConfig from './config/auth.config';
+import { Module, forwardRef } from '@nestjs/common';  // ← add forwardRef
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { ConfigModule, ConfigType } from '@nestjs/config';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
+import { UsersModule } from 'src/users/users.module';
+import authConfig from './config/auth.config';
+import { HashingProvider } from './provider/hashing.provider';
+import { BcryptProvider } from './provider/bcrypt.provider';
 
 @Module({
+  imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule.forFeature(authConfig)],
+      inject: [authConfig.KEY],
+      useFactory: (config: ConfigType<typeof authConfig>) => ({
+        secret: config.jwt.secret,
+        signOptions: {
+          expiresIn: config.jwt.accessTokenExpiresIn as any,
+        },
+      }),
+    }),
+    ConfigModule.forFeature(authConfig),
+    forwardRef(() => UsersModule),  // ← wrap with forwardRef
+  ],
   controllers: [AuthController],
   providers: [
     AuthService,
@@ -63,23 +39,14 @@ import { RolesGuard } from './guards/roles.guard';
       useClass: BcryptProvider,
     },
   ],
-  imports: [
-    forwardRef(() => UsersModule),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    ConfigModule.forFeature(authConfig),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get('auth.jwt.secret'),
-        signOptions: {
-          expiresIn: configService.get('auth.jwt.accessTokenExpiresIn'),
-          audience: configService.get('auth.jwt.audience'),
-          issuer: configService.get('auth.jwt.issuer'),
-        },
-      }),
-      inject: [ConfigService],
-    }),
+  exports: [
+    AuthService,
+    HashingProvider,
+    JwtAuthGuard,
+    RolesGuard,
+    JwtStrategy,
+    PassportModule,
+    JwtModule,
   ],
-  exports: [AuthService, HashingProvider, JwtAuthGuard, RolesGuard],
 })
 export class AuthModule {}
