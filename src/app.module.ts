@@ -51,11 +51,11 @@ import authConfig from './auth/config/auth.config';
         logging: process.env.NODE_ENV === 'development',
 
         // 🔒 Production-specific settings
-        ssl:
-          process.env.NODE_ENV === 'production'
-            ? { rejectUnauthorized: false } // Enable SSL for production DB
-            : false,
-
+        // ssl:
+        //   process.env.NODE_ENV === 'production'
+        //     ? { rejectUnauthorized: false }
+        //     : false,
+        ssl: false,
         // Connection pool settings for production
         extra: {
           max: 10, // Maximum connections in pool
