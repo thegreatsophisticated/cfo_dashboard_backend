@@ -1,219 +1,20 @@
-// import { Injectable, Inject, forwardRef, NotFoundException, ConflictException, InternalServerErrorException } from "@nestjs/common";
-// import { CreateUserDto } from "./dto/create-user.dto";
-// import { UpdateUserDto } from "./dto/update-user.dto";
-// import { FilterUserDto } from "./dto/filter-user.dto";
-// import { Repository, Like, FindOptionsWhere } from 'typeorm';
-// import { User } from "./entities/user.entity";
-// import { InjectRepository } from "@nestjs/typeorm";
-// import { Profile } from "src/profiles/entities/profile.entity";
-// import { HashingProvider } from "src/auth/provider/hashing.provider";
-
-// @Injectable()
-// export class UsersService {
-
-//   constructor(
-//     @InjectRepository(User)
-//     private userRepository: Repository<User>,
-
-//     @InjectRepository(Profile)
-//     private profileRepository: Repository<Profile>,
-
-//     private readonly hashingProvider: HashingProvider,
-//   ) {}
-
-//   // find all users with filtering and pagination
-//   public async findAll(filters?: FilterUserDto) {
-//     const where: FindOptionsWhere<User> = {};
-
-//     if (filters?.name && filters.name.trim() !== '') {
-//       where.name = Like(`%${filters.name.trim()}%`);
-//     }
-
-//     if (filters?.id && filters.id.trim() !== '') {
-//       where.id = parseInt(filters.id);
-//     }
-
-//     const page = filters?.page || 1;
-//     const limit = filters?.limit || 10;
-
-//     const [data, total] = await this.userRepository.findAndCount({
-//       where,
-//       skip: (page - 1) * limit,
-//       take: limit,
-//       relations: ['profile'],
-//     });
-
-//     return {
-//       data,
-//       meta: {
-//         total,
-//         page,
-//         limit,
-//         totalPages: Math.ceil(total / limit),
-//       },
-//     };
-//   }
-
-//   // create user
-//   public async createUser(createUserDto: CreateUserDto) {
-//     // check both email and phone columns separately
-//     const existingUser = await this.userRepository.findOne({
-//       where: [
-//         { email: createUserDto.email },
-//         { phone: createUserDto.phone },
-//       ],
-//     });
-
-//     if (existingUser) {
-//       throw new ConflictException('User with this email or phone already exists');
-//     }
-
-//     // create and save profile if provided
-//     let profile = null;
-//     if (createUserDto.profile) {
-//       profile = this.profileRepository.create(createUserDto.profile);
-//       await this.profileRepository.save(profile);
-//     }
-
-//     // create and save user
-//     const newUser = this.userRepository.create({
-//       ...createUserDto,
-//       password: await this.hashingProvider.hashPassword(createUserDto.password),
-//       profile,
-//     });
-//     await this.userRepository.save(newUser);
-
-//     // Remove password from response
-//     const { password, ...userWithoutPassword } = newUser;
-
-//     return {
-//       status: 201,
-//       message: 'User created successfully',
-//       user: userWithoutPassword,
-//     };
-//   }
-
-//   // update user
-//   public async updateUser(id: number, updateUserDto: UpdateUserDto) {
-//     const user = await this.userRepository.findOne({
-//       where: { id },
-//       relations: ['profile'],
-//     });
-
-//     if (!user) {
-//       throw new NotFoundException('User not found');
-//     }
-
-//     // Check if email or phone already exists for another user
-//     if (updateUserDto.email || updateUserDto.phone) {
-//       const existingUser = await this.userRepository.findOne({
-//         where: [
-//           { email: updateUserDto.email },
-//           { phone: updateUserDto.phone },
-//         ],
-//       });
-
-//       if (existingUser && existingUser.id !== id) {
-//         throw new ConflictException('User with this email or phone already exists');
-//       }
-//     }
-
-//     // Update basic user fields
-//     if (updateUserDto.name) user.name = updateUserDto.name;
-//     if (updateUserDto.email) user.email = updateUserDto.email;
-//     if (updateUserDto.phone) user.phone = updateUserDto.phone;
-//     if (updateUserDto.role) user.role = updateUserDto.role;
-
-//     // Update or create profile
-//     if (updateUserDto.profile) {
-//       if (user.profile) {
-//         // Update existing profile
-//         Object.assign(user.profile, updateUserDto.profile);
-//         await this.profileRepository.save(user.profile);
-//       } else {
-//         // Create new profile
-//         const newProfile = this.profileRepository.create(updateUserDto.profile);
-//         await this.profileRepository.save(newProfile);
-//         user.profile = newProfile;
-//       }
-//     }
-
-//     await this.userRepository.save(user);
-
-//     // Remove password from response
-//     const { password, ...userWithoutPassword } = user;
-
-//     return {
-//       status: 200,
-//       message: 'User updated successfully',
-//       user: userWithoutPassword,
-//     };
-//   }
-
-//   // delete user
-//   public async deleteUser(id: number) {
-//     const user = await this.userRepository.findOneBy({ id });
-
-//     if (!user) {
-//       throw new NotFoundException('User not found');
-//     }
-
-//     // Soft delete
-//     await this.userRepository.softDelete(id);
-
-//     return {
-//       status: 200,
-//       message: 'User deleted successfully',
-//     };
-//   }
-
-//   // find user by id
-//   public async findUserByID(id: number) {
-//     const user = await this.userRepository.findOne({
-//       where: { id },
-//       relations: ['profile'],
-//     });
-
-//     if (!user) {
-//       throw new NotFoundException('User not found');
-//     }
-
-//     // Remove password from response
-//     const { password, ...userWithoutPassword } = user;
-
-//     return {
-//       status: 200,
-//       message: 'Successful user retrieval',
-//       user: userWithoutPassword,
-//     };
-//   }
-
-//   // find user by email or phone
-//   public async findByEmailOrPhone(emailOrPhone: string) {
-//     return await this.userRepository.findOne({
-//       where: [
-//         { email: emailOrPhone },
-//         { phone: emailOrPhone },
-//       ],
-//       relations: ['profile'],
-//     });
-//   }
-// }
-
-import { Injectable, NotFoundException, ConflictException } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { FilterUserDto } from "./dto/filter-user.dto";
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { FilterUserDto } from './dto/filter-user.dto';
 import { Repository, Like, FindOptionsWhere } from 'typeorm';
-import { User } from "./entities/user.entity";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Profile } from "src/profiles/entities/profile.entity";
-import { HashingProvider } from "src/auth/provider/hashing.provider";
-import { Company } from "src/company/entities/company.entity";
+import { User } from './entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Profile } from 'src/profiles/entities/profile.entity';
+import { HashingProvider } from 'src/auth/provider/hashing.provider';
+import { Company } from 'src/company/entities/company.entity';
 
 @Injectable()
 export class UsersService {
-
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -221,13 +22,15 @@ export class UsersService {
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
 
-    @InjectRepository(Company )
+    @InjectRepository(Company)
     private companyRepository: Repository<Company>,
 
     private readonly hashingProvider: HashingProvider,
   ) {}
 
-  // Find all users with filtering and pagination
+  /**
+   * Find all users with optional filtering and pagination
+   */
   public async findAll(filters?: FilterUserDto) {
     const where: FindOptionsWhere<User> = {};
 
@@ -250,6 +53,8 @@ export class UsersService {
     });
 
     return {
+      status: 200,
+      message: 'Users retrieved successfully',
       data,
       meta: {
         total,
@@ -260,34 +65,37 @@ export class UsersService {
     };
   }
 
-  // Create user
+  /**
+   * Create a new user
+   */
   public async createUser(createUserDto: CreateUserDto) {
-    // Check both email and phone columns separately
+    // Check if email or phone already exists
     const existingUser = await this.userRepository.findOne({
-      where: [
-        { email: createUserDto.email },
-        { phone: createUserDto.phone },
-      ],
+      where: [{ email: createUserDto.email }, { phone: createUserDto.phone }],
     });
 
     if (existingUser) {
-      throw new ConflictException('User with this email or phone already exists');
+      throw new ConflictException(
+        'User with this email or phone already exists',
+      );
     }
 
     // Verify company exists if companyId is provided
-    let company = null;
+    let company: Company | null = null;
     if (createUserDto.companyId) {
-      company = await this.companyRepository.findOne({ 
-        where: { id: createUserDto.companyId } 
+      company = await this.companyRepository.findOne({
+        where: { id: createUserDto.companyId },
       });
-      
+
       if (!company) {
-        throw new NotFoundException(`Company with ID ${createUserDto.companyId} not found`);
+        throw new NotFoundException(
+          `Company with ID ${createUserDto.companyId} not found`,
+        );
       }
     }
 
     // Create and save profile if provided
-    let profile = null;
+    let profile: Profile | null = null;
     if (createUserDto.profile) {
       profile = this.profileRepository.create(createUserDto.profile);
       await this.profileRepository.save(profile);
@@ -303,7 +111,7 @@ export class UsersService {
       profile,
       company,
     });
-    
+
     await this.userRepository.save(newUser);
 
     // Fetch user with relations for response
@@ -312,7 +120,6 @@ export class UsersService {
       relations: ['profile', 'company'],
     });
 
-    // Remove password from response
     const { password, ...userWithoutPassword } = savedUser;
 
     return {
@@ -322,7 +129,9 @@ export class UsersService {
     };
   }
 
-  // Update user
+  /**
+   * Update an existing user
+   */
   public async updateUser(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOne({
       where: { id },
@@ -333,38 +142,38 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
 
-    // Check if email or phone already exists for another user
+    // Check if email or phone is already taken by another user
     if (updateUserDto.email || updateUserDto.phone) {
       const existingUser = await this.userRepository.findOne({
-        where: [
-          { email: updateUserDto.email },
-          { phone: updateUserDto.phone },
-        ],
+        where: [{ email: updateUserDto.email }, { phone: updateUserDto.phone }],
       });
 
       if (existingUser && existingUser.id !== id) {
-        throw new ConflictException('User with this email or phone already exists');
+        throw new ConflictException(
+          'User with this email or phone already exists',
+        );
       }
     }
 
-    // Verify company exists if companyId is provided
+    // Handle company assignment
     if (updateUserDto.companyId !== undefined) {
       if (updateUserDto.companyId === null) {
-        // Remove company assignment
         user.company = null;
       } else {
-        const company = await this.companyRepository.findOne({ 
-          where: { id: updateUserDto.companyId } 
+        const company = await this.companyRepository.findOne({
+          where: { id: updateUserDto.companyId },
         });
-        
+
         if (!company) {
-          throw new NotFoundException(`Company with ID ${updateUserDto.companyId} not found`);
+          throw new NotFoundException(
+            `Company with ID ${updateUserDto.companyId} not found`,
+          );
         }
         user.company = company;
       }
     }
 
-    // Update basic user fields
+    // Update basic fields
     if (updateUserDto.name) user.name = updateUserDto.name;
     if (updateUserDto.email) user.email = updateUserDto.email;
     if (updateUserDto.phone) user.phone = updateUserDto.phone;
@@ -384,13 +193,11 @@ export class UsersService {
 
     await this.userRepository.save(user);
 
-    // Fetch updated user with relations
     const updatedUser = await this.userRepository.findOne({
       where: { id },
       relations: ['profile', 'company'],
     });
 
-    // Remove password from response
     const { password, ...userWithoutPassword } = updatedUser;
 
     return {
@@ -400,7 +207,9 @@ export class UsersService {
     };
   }
 
-  // Assign user to company
+  /**
+   * Assign a user to a company
+   */
   public async assignUserToCompany(userId: number, companyId: number) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -431,7 +240,9 @@ export class UsersService {
     };
   }
 
-  // Remove user from company
+  /**
+   * Remove a user from their company
+   */
   public async removeUserFromCompany(userId: number) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -454,7 +265,9 @@ export class UsersService {
     };
   }
 
-  // Delete user
+  /**
+   * Soft delete a user
+   */
   public async deleteUser(id: number) {
     const user = await this.userRepository.findOneBy({ id });
 
@@ -470,7 +283,9 @@ export class UsersService {
     };
   }
 
-  // Find user by id
+  /**
+   * Find a user by ID
+   */
   public async findUserByID(id: number) {
     const user = await this.userRepository.findOne({
       where: { id },
@@ -490,50 +305,44 @@ export class UsersService {
     };
   }
 
-  // Find user by email or phone
+  /**
+   * Find a user by email or phone (used internally by auth)
+   */
   public async findByEmailOrPhone(emailOrPhone: string) {
     return await this.userRepository.findOne({
-      where: [
-        { email: emailOrPhone },
-        { phone: emailOrPhone },
-      ],
+      where: [{ email: emailOrPhone }, { phone: emailOrPhone }],
       relations: ['profile', 'company'],
     });
   }
 
+  /**
+   * Find all users belonging to a specific company
+   */
+  public async findUsersByCompany(companyId: number) {
+    const company = await this.companyRepository.findOne({
+      where: { id: companyId },
+    });
 
-  // Add this method to your UsersService class
+    if (!company) {
+      throw new NotFoundException(`Company with ID ${companyId} not found`);
+    }
 
-/**
- * Find all users belonging to a specific company
- */
-public async findUsersByCompany(companyId: number) {
-  // Verify company exists
-  const company = await this.companyRepository.findOne({
-    where: { id: companyId },
-  });
+    const users = await this.userRepository.find({
+      where: { company: { id: companyId } },
+      relations: ['profile', 'company'],
+    });
 
-  if (!company) {
-    throw new NotFoundException(`Company with ID ${companyId} not found`);
+    const usersWithoutPasswords = users.map(({ password, ...user }) => user);
+
+    return {
+      status: 200,
+      message: 'Users retrieved successfully',
+      count: usersWithoutPasswords.length,
+      company: {
+        id: company.id,
+        name: company.name,
+      },
+      users: usersWithoutPasswords,
+    };
   }
-
-  const users = await this.userRepository.find({
-    where: { company: { id: companyId } },
-    relations: ['profile', 'company'],
-  });
-
-  // Remove passwords from all users
-  const usersWithoutPasswords = users.map(({ password, ...user }) => user);
-
-  return {
-    status: 200,
-    message: 'Users retrieved successfully',
-    count: usersWithoutPasswords.length,
-    company: {
-      id: company.id,
-      name: company.name,
-    },
-    users: usersWithoutPasswords,
-  };
-}
 }

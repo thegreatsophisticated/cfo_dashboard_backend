@@ -12,12 +12,8 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   // Use relative paths from the config directory
-  entities: [
-    path.join(__dirname, '..', '**', '*.entity{.ts,.js}')
-  ],
-  migrations: [
-    path.join(__dirname, '..', 'migrations', '*{.ts,.js}')
-  ],
+  entities: [path.join(__dirname, '..', '**', '*.entity{.ts,.js}')],
+  migrations: [path.join(__dirname, '..', 'migrations', '*{.ts,.js}')],
   synchronize: false,
   logging: true,
 });

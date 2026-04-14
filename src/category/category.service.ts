@@ -1,6 +1,3 @@
-
-
-
 import {
   Injectable,
   NotFoundException,
@@ -9,8 +6,16 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Category, CategoryLevel, CategoryType } from './entities/category.entity';
-import { CreateSubSubCategoryDto, CreateCategoryDto, UpdateCategoryDto } from './dto/create-category.dto';
+import {
+  Category,
+  CategoryLevel,
+  CategoryType,
+} from './entities/category.entity';
+import {
+  CreateSubSubCategoryDto,
+  CreateCategoryDto,
+  UpdateCategoryDto,
+} from './dto/create-category.dto';
 import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
@@ -158,10 +163,10 @@ export class CategoryService {
       throw new BadRequestException('Invalid category hierarchy');
     }
 
-    return { 
-      main, 
-      sub: sub!, 
-      subSub: subSub! 
+    return {
+      main,
+      sub: sub,
+      subSub: subSub,
     };
   }
 
@@ -243,12 +248,22 @@ export class CategoryService {
       parent = foundParent;
 
       // Validate level hierarchy
-      if (createDto.level === CategoryLevel.SUB && parent.level !== CategoryLevel.MAIN) {
-        throw new BadRequestException('Sub category parent must be a main category');
+      if (
+        createDto.level === CategoryLevel.SUB &&
+        parent.level !== CategoryLevel.MAIN
+      ) {
+        throw new BadRequestException(
+          'Sub category parent must be a main category',
+        );
       }
 
-      if (createDto.level === CategoryLevel.SUB_SUB && parent.level !== CategoryLevel.SUB) {
-        throw new BadRequestException('Sub-sub category parent must be a sub category');
+      if (
+        createDto.level === CategoryLevel.SUB_SUB &&
+        parent.level !== CategoryLevel.SUB
+      ) {
+        throw new BadRequestException(
+          'Sub-sub category parent must be a sub category',
+        );
       }
 
       // Validate code format
@@ -312,7 +327,7 @@ export class CategoryService {
   // Get next available code for a parent category
   async getNextAvailableCode(parentId: number): Promise<string> {
     const parent = await this.getCategoryById(parentId);
-    
+
     // Get all children codes
     const children = await this.categoryRepository.find({
       where: {
@@ -371,6 +386,4 @@ export class CategoryService {
     await this.categoryRepository.restore(id);
     return this.getCategoryById(id);
   }
-
-  
 }

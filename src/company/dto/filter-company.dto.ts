@@ -1,5 +1,11 @@
 // dto/filter-company.dto.ts
-import { IsOptional, IsString, IsInt, IsEnum, IsBoolean } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsInt,
+  IsEnum,
+  IsBoolean,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CompanyType, IndustryType } from './create-company.dto';
 

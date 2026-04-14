@@ -23,7 +23,9 @@ export class RecurringTransactionService {
 
     try {
       const dueTransactions = await this.findDueRecurringTransactions();
-      this.logger.log(`Found ${dueTransactions.length} recurring transactions to execute`);
+      this.logger.log(
+        `Found ${dueTransactions.length} recurring transactions to execute`,
+      );
 
       for (const template of dueTransactions) {
         await this.executeRecurringTransaction(template);
@@ -55,9 +57,13 @@ export class RecurringTransactionService {
   /**
    * Execute a single recurring transaction
    */
-  private async executeRecurringTransaction(template: Transaction): Promise<void> {
+  private async executeRecurringTransaction(
+    template: Transaction,
+  ): Promise<void> {
     try {
-      this.logger.log(`Executing recurring transaction ${template.id} - ${template.description}`);
+      this.logger.log(
+        `Executing recurring transaction ${template.id} - ${template.description}`,
+      );
 
       // Check if recurring has ended
       if (this.shouldStopRecurring(template)) {
@@ -72,8 +78,8 @@ export class RecurringTransactionService {
         transactionType: template.transactionType,
         amount: template.amount,
         description: `${template.description} (Recurring ${template.executionCount + 1})`,
-        referenceNumber: template.referenceNumber 
-          ? `${template.referenceNumber}-R${template.executionCount + 1}-${Date.now()}` 
+        referenceNumber: template.referenceNumber
+          ? `${template.referenceNumber}-R${template.executionCount + 1}-${Date.now()}`
           : `REC-${template.id}-${Date.now()}`,
         paymentMethod: template.paymentMethod,
         status: TransactionStatus.COMPLETED,
@@ -96,10 +102,13 @@ export class RecurringTransactionService {
 
       this.logger.log(
         `Successfully created transaction from recurring template ${template.id}. ` +
-        `Execution count: ${template.executionCount + 1}`
+          `Execution count: ${template.executionCount + 1}`,
       );
     } catch (error) {
-      this.logger.error(`Error executing recurring transaction ${template.id}:`, error);
+      this.logger.error(
+        `Error executing recurring transaction ${template.id}:`,
+        error,
+      );
       throw error;
     }
   }
@@ -110,7 +119,7 @@ export class RecurringTransactionService {
   private shouldStopRecurring(template: Transaction): boolean {
     // Check execution count limit
     if (
-      template.recurringExecutionCount && 
+      template.recurringExecutionCount &&
       template.executionCount >= template.recurringExecutionCount
     ) {
       return true;
@@ -121,7 +130,7 @@ export class RecurringTransactionService {
       const endDate = new Date(template.recurringEndDate);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
+
       if (today > endDate) {
         return true;
       }
@@ -133,7 +142,9 @@ export class RecurringTransactionService {
   /**
    * Update template for next execution
    */
-  private async updateTemplateForNextExecution(template: Transaction): Promise<void> {
+  private async updateTemplateForNextExecution(
+    template: Transaction,
+  ): Promise<void> {
     const nextDate = template.calculateNextExecutionDate(new Date());
 
     template.lastExecutionDate = new Date();
@@ -146,7 +157,9 @@ export class RecurringTransactionService {
   /**
    * Deactivate a recurring transaction
    */
-  private async deactivateRecurringTransaction(template: Transaction): Promise<void> {
+  private async deactivateRecurringTransaction(
+    template: Transaction,
+  ): Promise<void> {
     template.isRecurringActive = false;
     template.lastExecutionDate = new Date();
     template.nextExecutionDate = null;
@@ -157,7 +170,9 @@ export class RecurringTransactionService {
   /**
    * Manually execute a recurring transaction (for testing or manual trigger)
    */
-  async manuallyExecuteRecurringTransaction(templateId: number): Promise<Transaction> {
+  async manuallyExecuteRecurringTransaction(
+    templateId: number,
+  ): Promise<Transaction> {
     const template = await this.transactionRepository.findOne({
       where: { id: templateId, isRecurring: true },
       relations: ['company', 'category', 'createdBy'],
@@ -173,7 +188,9 @@ export class RecurringTransactionService {
 
     if (this.shouldStopRecurring(template)) {
       await this.deactivateRecurringTransaction(template);
-      throw new Error(`Recurring transaction ${templateId} has reached its limit`);
+      throw new Error(
+        `Recurring transaction ${templateId} has reached its limit`,
+      );
     }
 
     // Create new transaction
@@ -182,8 +199,8 @@ export class RecurringTransactionService {
       transactionType: template.transactionType,
       amount: template.amount,
       description: `${template.description} (Manual Recurring ${template.executionCount + 1})`,
-      referenceNumber: template.referenceNumber 
-        ? `${template.referenceNumber}-R${template.executionCount + 1}-${Date.now()}` 
+      referenceNumber: template.referenceNumber
+        ? `${template.referenceNumber}-R${template.executionCount + 1}-${Date.now()}`
         : `REC-${template.id}-${Date.now()}`,
       paymentMethod: template.paymentMethod,
       status: TransactionStatus.COMPLETED,
@@ -199,7 +216,8 @@ export class RecurringTransactionService {
       createdBy: template.createdBy,
     });
 
-    const savedTransaction = await this.transactionRepository.save(newTransaction);
+    const savedTransaction =
+      await this.transactionRepository.save(newTransaction);
 
     // Update template
     await this.updateTemplateForNextExecution(template);
@@ -262,14 +280,18 @@ export class RecurringTransactionService {
     }
 
     if (this.shouldStopRecurring(template)) {
-      throw new Error(`Cannot resume: recurring transaction has reached its limit`);
+      throw new Error(
+        `Cannot resume: recurring transaction has reached its limit`,
+      );
     }
 
     template.isRecurringActive = true;
-    
+
     // If no next execution date, calculate one
     if (!template.nextExecutionDate) {
-      template.nextExecutionDate = template.calculateNextExecutionDate(new Date());
+      template.nextExecutionDate = template.calculateNextExecutionDate(
+        new Date(),
+      );
     }
 
     await this.transactionRepository.save(template);

@@ -1,8 +1,8 @@
-import { 
-  IsOptional, 
-  IsNumber, 
-  Min, 
-  MinLength, 
+import {
+  IsOptional,
+  IsNumber,
+  Min,
+  MinLength,
   IsNotEmpty,
   IsEmail,
   IsUrl,
@@ -13,7 +13,7 @@ import {
   ValidateNested,
   IsBoolean,
   Max,
-  IsInt
+  IsInt,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -22,7 +22,7 @@ export enum CompanyType {
   PARTNERSHIP = 'partnership',
   LLC = 'llc',
   CORPORATION = 'corporation',
-  NON_PROFIT = 'non_profit'
+  NON_PROFIT = 'non_profit',
 }
 
 export enum IndustryType {
@@ -32,7 +32,7 @@ export enum IndustryType {
   RETAIL = 'retail',
   MANUFACTURING = 'manufacturing',
   EDUCATION = 'education',
-  OTHER = 'other'
+  OTHER = 'other',
 }
 
 export class AddressDto {

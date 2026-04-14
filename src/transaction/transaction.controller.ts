@@ -1,16 +1,13 @@
-
-
-
-// import { 
-//   Controller, 
-//   Get, 
-//   Post, 
-//   Body, 
-//   Patch, 
-//   Param, 
-//   Delete, 
+// import {
+//   Controller,
+//   Get,
+//   Post,
+//   Body,
+//   Patch,
+//   Param,
+//   Delete,
 //   Query,
-//   ParseIntPipe 
+//   ParseIntPipe
 // } from '@nestjs/common';
 // import { TransactionService } from './transaction.service';
 // import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -134,7 +131,7 @@
 
 //   @Patch(':id')
 //   update(
-//     @Param('id', ParseIntPipe) id: number, 
+//     @Param('id', ParseIntPipe) id: number,
 //     @Body() updateTransactionDto: UpdateTransactionDto
 //   ) {
 //     return this.transactionService.updateTransaction(id, updateTransactionDto);
@@ -146,19 +143,19 @@
 //   }
 // }
 
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
   Query,
   ParseIntPipe,
   UseGuards,
   HttpCode,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -183,9 +180,12 @@ export class TransactionController {
   @HttpCode(HttpStatus.CREATED)
   create(
     @Body() createTransactionDto: CreateTransactionDto,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.createTransaction(createTransactionDto, currentUser);
+    return this.transactionService.createTransaction(
+      createTransactionDto,
+      currentUser,
+    );
   }
 
   /**
@@ -206,9 +206,12 @@ export class TransactionController {
   @Get('company/:companyId')
   findByCompany(
     @Param('companyId', ParseIntPipe) companyId: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.findTransactionsByCompany(companyId, currentUser);
+    return this.transactionService.findTransactionsByCompany(
+      companyId,
+      currentUser,
+    );
   }
 
   /**
@@ -219,9 +222,12 @@ export class TransactionController {
   @Get('category/:categoryId')
   findByCategory(
     @Param('categoryId', ParseIntPipe) categoryId: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.findTransactionsByCategory(categoryId, currentUser);
+    return this.transactionService.findTransactionsByCategory(
+      categoryId,
+      currentUser,
+    );
   }
 
   /**
@@ -234,9 +240,14 @@ export class TransactionController {
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.findTransactionsByDateRange(companyId, startDate, endDate, currentUser);
+    return this.transactionService.findTransactionsByDateRange(
+      companyId,
+      startDate,
+      endDate,
+      currentUser,
+    );
   }
 
   // Recurring Transactions Endpoints
@@ -259,9 +270,12 @@ export class TransactionController {
   @Get('recurring/company/:companyId')
   getRecurringTransactionsByCompany(
     @Param('companyId', ParseIntPipe) companyId: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.getRecurringTransactionsByCompany(companyId, currentUser);
+    return this.transactionService.getRecurringTransactionsByCompany(
+      companyId,
+      currentUser,
+    );
   }
 
   /**
@@ -273,7 +287,7 @@ export class TransactionController {
   @HttpCode(HttpStatus.CREATED)
   executeRecurringTransaction(
     @Param('id', ParseIntPipe) id: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.executeRecurringTransaction(id, currentUser);
   }
@@ -289,9 +303,13 @@ export class TransactionController {
   getIncomeStatement(
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query('year', ParseIntPipe) year: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.getIncomeStatement(companyId, year, currentUser);
+    return this.transactionService.getIncomeStatement(
+      companyId,
+      year,
+      currentUser,
+    );
   }
 
   /**
@@ -303,9 +321,13 @@ export class TransactionController {
   getBalanceSheet(
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query('asOfDate') asOfDate: string,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.getBalanceSheet(companyId, asOfDate, currentUser);
+    return this.transactionService.getBalanceSheet(
+      companyId,
+      asOfDate,
+      currentUser,
+    );
   }
 
   /**
@@ -318,9 +340,14 @@ export class TransactionController {
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.getCashBook(companyId, startDate, endDate, currentUser);
+    return this.transactionService.getCashBook(
+      companyId,
+      startDate,
+      endDate,
+      currentUser,
+    );
   }
 
   // Global Financial Reports - Admin Only
@@ -333,7 +360,7 @@ export class TransactionController {
   @Roles('admin')
   getGlobalIncomeStatement(
     @Query('year', ParseIntPipe) year: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.getGlobalIncomeStatement(year, currentUser);
   }
@@ -346,7 +373,7 @@ export class TransactionController {
   @Roles('admin')
   getGlobalBalanceSheet(
     @Query('asOfDate') asOfDate: string,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.getGlobalBalanceSheet(asOfDate, currentUser);
   }
@@ -360,9 +387,13 @@ export class TransactionController {
   getGlobalCashBook(
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.getGlobalCashBook(startDate, endDate, currentUser);
+    return this.transactionService.getGlobalCashBook(
+      startDate,
+      endDate,
+      currentUser,
+    );
   }
 
   /**
@@ -373,7 +404,7 @@ export class TransactionController {
   @Roles('admin')
   getGlobalFinancialSummary(
     @Query('year', ParseIntPipe) year: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.getGlobalFinancialSummary(year, currentUser);
   }
@@ -386,7 +417,7 @@ export class TransactionController {
   @Roles('admin')
   getCompanyComparison(
     @Query('year', ParseIntPipe) year: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.getCompanyComparison(year, currentUser);
   }
@@ -399,7 +430,7 @@ export class TransactionController {
   @Get(':id')
   findOne(
     @Param('id', ParseIntPipe) id: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.findTransactionById(id, currentUser);
   }
@@ -411,11 +442,15 @@ export class TransactionController {
    */
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) id: number, 
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTransactionDto: UpdateTransactionDto,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
-    return this.transactionService.updateTransaction(id, updateTransactionDto, currentUser);
+    return this.transactionService.updateTransaction(
+      id,
+      updateTransactionDto,
+      currentUser,
+    );
   }
 
   /**
@@ -427,43 +462,44 @@ export class TransactionController {
   @HttpCode(HttpStatus.OK)
   remove(
     @Param('id', ParseIntPipe) id: number,
-    @CurrentUser() currentUser: User
+    @CurrentUser() currentUser: User,
   ) {
     return this.transactionService.deleteTransaction(id, currentUser);
   }
 
-
+  /**
+   * Get recurring transaction status
+   */
+  @Get('recurring/:id/status')
+  getRecurringStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.transactionService.getRecurringTransactionStatus(
+      id,
+      currentUser,
+    );
+  }
 
   /**
- * Get recurring transaction status
- */
-@Get('recurring/:id/status')
-getRecurringStatus(
-  @Param('id', ParseIntPipe) id: number,
-  @CurrentUser() currentUser: User
-) {
-  return this.transactionService.getRecurringTransactionStatus(id, currentUser);
-}
+   * Pause recurring transaction
+   */
+  @Patch('recurring/:id/pause')
+  pauseRecurring(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.transactionService.pauseRecurringTransaction(id, currentUser);
+  }
 
-/**
- * Pause recurring transaction
- */
-@Patch('recurring/:id/pause')
-pauseRecurring(
-  @Param('id', ParseIntPipe) id: number,
-  @CurrentUser() currentUser: User
-) {
-  return this.transactionService.pauseRecurringTransaction(id, currentUser);
-}
-
-/**
- * Resume recurring transaction
- */
-@Patch('recurring/:id/resume')
-resumeRecurring(
-  @Param('id', ParseIntPipe) id: number,
-  @CurrentUser() currentUser: User
-) {
-  return this.transactionService.resumeRecurringTransaction(id, currentUser);
-}
+  /**
+   * Resume recurring transaction
+   */
+  @Patch('recurring/:id/resume')
+  resumeRecurring(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.transactionService.resumeRecurringTransaction(id, currentUser);
+  }
 }

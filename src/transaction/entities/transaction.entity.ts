@@ -174,7 +174,6 @@
 //   }
 // }
 
-
 import { Category } from '../../category/entities/category.entity';
 import { Company } from '../../company/entities/company.entity';
 import { User } from '../../users/entities/user.entity';
@@ -384,8 +383,14 @@ export class Transaction {
 
   @BeforeInsert()
   setNextExecutionDate() {
-    if (this.isRecurring && this.recurringFrequency && !this.nextExecutionDate) {
-      this.nextExecutionDate = this.calculateNextExecutionDate(new Date(this.date));
+    if (
+      this.isRecurring &&
+      this.recurringFrequency &&
+      !this.nextExecutionDate
+    ) {
+      this.nextExecutionDate = this.calculateNextExecutionDate(
+        new Date(this.date),
+      );
     }
   }
 

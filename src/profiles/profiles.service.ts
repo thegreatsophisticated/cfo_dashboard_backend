@@ -10,30 +10,30 @@ import { response } from 'express';
 export class ProfilesService {
   constructor(
     @InjectRepository(Profile)
-    private profileRepository: Repository<Profile>) { }
+    private profileRepository: Repository<Profile>,
+  ) {}
 
   create(createProfileDto: CreateProfileDto) {
-    if (createProfileDto.dateOfBirth && createProfileDto.dateOfBirth > new Date()) {
+    if (
+      createProfileDto.dateOfBirth &&
+      createProfileDto.dateOfBirth > new Date()
+    ) {
       throw new Error('Date of birth cannot be in the future');
     }
-
   }
 
   public async findAllProfiles() {
-
     const profiles = await this.profileRepository.find({
       relations: ['user'],
     });
 
-
-   console.log('Profiles fetched:', profiles);
+    console.log('Profiles fetched:', profiles);
     return {
       status: 'success',
       statusCode: 200,
       message: 'Profiles fetched successfully',
       profiles,
     };
-
   }
 
   findOne(id: number) {

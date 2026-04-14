@@ -4,7 +4,11 @@ import { DataSource } from 'typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
 import { AppModule } from '../../app.module';
-import { Category,CategoryLevel, CategoryType } from '../../category/entities/category.entity';
+import {
+  Category,
+  CategoryLevel,
+  CategoryType,
+} from '../../category/entities/category.entity';
 import { User } from '../../users/entities/user.entity';
 
 interface CategoryRow {
@@ -21,13 +25,15 @@ async function seedCategoriesFromJson() {
 
   const app = await NestFactory.createApplicationContext(AppModule);
   const dataSource = app.get(DataSource);
-  const categoryRepository = dataSource.getRepository(Category );
-  const userRepository = dataSource.getRepository(User );
+  const categoryRepository = dataSource.getRepository(Category);
+  const userRepository = dataSource.getRepository(User);
 
   try {
     // Get or create a system user for seeding
-    let systemUser = await userRepository.findOne({ where: { email: 'system@irebe.com' } });
-    
+    let systemUser = await userRepository.findOne({
+      where: { email: 'system@irebe.com' },
+    });
+
     if (!systemUser) {
       systemUser = userRepository.create({
         name: 'System',
@@ -42,11 +48,13 @@ async function seedCategoriesFromJson() {
 
     // Read JSON file (place this in your project root)
     const jsonPath = path.join(__dirname, '../../categories-seed-data.json');
-    
+
     if (!fs.existsSync(jsonPath)) {
       console.log('❌ JSON file not found at:', jsonPath);
       console.log('Please download the categories-import.json file I created');
-      console.log('And place it in your project root as categories-seed-data.json');
+      console.log(
+        'And place it in your project root as categories-seed-data.json',
+      );
       process.exit(1);
     }
 
@@ -59,14 +67,21 @@ async function seedCategoriesFromJson() {
     const getCategoryType = (code: string): CategoryType => {
       const firstDigit = code.charAt(0);
       switch (firstDigit) {
-        case '1': return CategoryType.EQUITY;
-        case '2': return CategoryType.ASSET;
-        case '3': return CategoryType.LIABILITY;
-        case '4': return CategoryType.REVENUE;
+        case '1':
+          return CategoryType.EQUITY;
+        case '2':
+          return CategoryType.ASSET;
+        case '3':
+          return CategoryType.LIABILITY;
+        case '4':
+          return CategoryType.REVENUE;
         case '5':
-        case '6': return CategoryType.EXPENSE;
-        case '7': return CategoryType.COST_OF_SALES;
-        default: return CategoryType.EQUITY;
+        case '6':
+          return CategoryType.EXPENSE;
+        case '7':
+          return CategoryType.COST_OF_SALES;
+        default:
+          return CategoryType.EQUITY;
       }
     };
 
@@ -82,7 +97,8 @@ async function seedCategoriesFromJson() {
 
     // Process each row
     for (const row of categories) {
-      const { mainCode, mainName, subCode, subName, subSubCode, subSubName } = row;
+      const { mainCode, mainName, subCode, subName, subSubCode, subSubName } =
+        row;
 
       if (!mainCode) continue;
 
@@ -90,8 +106,10 @@ async function seedCategoriesFromJson() {
 
       // Create Main Category
       if (!createdMain.has(mainCode)) {
-        let mainCategory = await categoryRepository.findOne({ where: { code: mainCode } });
-        
+        let mainCategory = await categoryRepository.findOne({
+          where: { code: mainCode },
+        });
+
         if (!mainCategory) {
           mainCategory = categoryRepository.create({
             code: mainCode,
@@ -103,7 +121,7 @@ async function seedCategoriesFromJson() {
             sortOrder: parseInt(mainCode) || 0,
             createdBy: systemUser,
           });
-          
+
           await categoryRepository.save(mainCategory);
           createdMain.set(mainCode, mainCategory);
           stats.mainCreated++;
@@ -115,11 +133,13 @@ async function seedCategoriesFromJson() {
 
       // Create Sub Category
       if (subCode && !createdSub.has(subCode)) {
-        let subCategory = await categoryRepository.findOne({ where: { code: subCode } });
-        
+        let subCategory = await categoryRepository.findOne({
+          where: { code: subCode },
+        });
+
         if (!subCategory) {
           const mainCategory = createdMain.get(mainCode);
-          
+
           subCategory = categoryRepository.create({
             code: subCode,
             name: subName,
@@ -131,7 +151,7 @@ async function seedCategoriesFromJson() {
             sortOrder: parseInt(subCode) || 0,
             createdBy: systemUser,
           });
-          
+
           await categoryRepository.save(subCategory);
           createdSub.set(subCode, subCategory);
           stats.subCreated++;
@@ -143,11 +163,13 @@ async function seedCategoriesFromJson() {
 
       // Create Sub-Sub Category
       if (subSubCode) {
-        const existingSubSub = await categoryRepository.findOne({ where: { code: subSubCode } });
-        
+        const existingSubSub = await categoryRepository.findOne({
+          where: { code: subSubCode },
+        });
+
         if (!existingSubSub) {
           const subCategory = createdSub.get(subCode);
-          
+
           if (subCategory) {
             const subSubCategory = categoryRepository.create({
               code: subSubCode,
@@ -160,7 +182,7 @@ async function seedCategoriesFromJson() {
               sortOrder: parseInt(subSubCode) || 0,
               createdBy: systemUser,
             });
-            
+
             await categoryRepository.save(subSubCategory);
             stats.subSubCreated++;
             console.log(`    ✅ SubSub: ${subSubCode} - ${subSubName}`);
@@ -175,7 +197,6 @@ async function seedCategoriesFromJson() {
     console.log(`   Sub categories: ${stats.subCreated}`);
     console.log(`   Sub-sub categories: ${stats.subSubCreated}`);
     console.log(`   Skipped: ${stats.skipped}`);
-
   } catch (error) {
     console.error('❌ Seeding failed:', error);
     process.exit(1);
