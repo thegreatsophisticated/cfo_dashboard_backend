@@ -1,5 +1,4 @@
-// src/auth/guards/jwt-auth.guard.ts
-import { Injectable, ExecutionContext } from '@nestjs/common';
+import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 
@@ -10,7 +9,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   canActivate(context: ExecutionContext) {
-    // Check if route is marked as public
     const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
       context.getHandler(),
       context.getClass(),
@@ -20,6 +18,22 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       return true;
     }
 
+    // ← Temporary: log the Authorization header
+    const request = context.switchToHttp().getRequest();
+    console.log('AUTH HEADER:', request.headers['authorization']);
+
     return super.canActivate(context);
+  }
+
+  // ← Add this to catch the exact passport failure reason
+  handleRequest(err, user, info) {
+    console.log('JWT Guard - err:', err);
+    console.log('JWT Guard - user:', user);
+    console.log('JWT Guard - info:', info?.message || info);
+
+    if (err || !user) {
+      throw err || new UnauthorizedException(info?.message || 'Unauthorized');
+    }
+    return user;
   }
 }
