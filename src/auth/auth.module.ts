@@ -31,11 +31,10 @@
 //       inject: [ConfigService],
 //     }),
 
-//   ], 
-//   exports: [AuthService, HashingProvider],  
+//   ],
+//   exports: [AuthService, HashingProvider],
 // })
 // export class AuthModule {}
-
 
 // src/auth/auth.module.ts
 import { Module, forwardRef } from '@nestjs/common';
@@ -62,7 +61,7 @@ import { RolesGuard } from './guards/roles.guard';
     {
       provide: HashingProvider,
       useClass: BcryptProvider,
-    }
+    },
   ],
   imports: [
     forwardRef(() => UsersModule),
@@ -80,7 +79,7 @@ import { RolesGuard } from './guards/roles.guard';
       }),
       inject: [ConfigService],
     }),
-  ], 
-  exports: [AuthService, HashingProvider, JwtAuthGuard, RolesGuard],  
+  ],
+  exports: [AuthService, HashingProvider, JwtAuthGuard, RolesGuard],
 })
 export class AuthModule {}

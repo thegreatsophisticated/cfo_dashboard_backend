@@ -1,55 +1,17 @@
-// import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-// import { UsersService } from './users.service';
-// import { CreateUserDto } from './dto/create-user.dto';
-// import { UpdateUserDto } from './dto/update-user.dto';
-// import { FilterUserDto } from './dto/filter-user.dto';
-
-// @Controller('users')
-// export class UsersController {
-//   constructor(private readonly usersService: UsersService) {}
-
-//   @Post('create')
-//   create(@Body() createUserDto: CreateUserDto) {
-//     return this.usersService.createUser(createUserDto);
-//   }
-
-//   @Get()
-//   findAll(@Query() filterDto: FilterUserDto) {
-//     console.log('Filtering users with criteria:', filterDto);
-//     return this.usersService.findAll(filterDto);
-//   }
-
-//   @Get(':id')
-//   findOne(@Param('id') id: string) {
-//     return this.usersService.findUserByID(parseInt(id));
-//   }
-
-//   @Patch(':id')
-//   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-//     return this.usersService.updateUser(parseInt(id), updateUserDto);
-//   }
-
-//   @Delete(':id')
-//   remove(@Param('id') id: string) {
-//     return this.usersService.deleteUser(parseInt(id));
-//   }
-
-  
-// }
-
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
   Query,
   ParseIntPipe,
   HttpCode,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -74,8 +36,16 @@ export class UsersController {
    */
   @Get()
   findAll(@Query() filterDto: FilterUserDto) {
-    console.log('Filtering users with criteria:', filterDto);
     return this.usersService.findAll(filterDto);
+  }
+
+  /**
+   * Get all users belonging to a specific company
+   * NOTE: Must be declared BEFORE @Get(':id') to avoid route conflict
+   */
+  @Get('company/:companyId')
+  getUsersByCompany(@Param('companyId', ParseIntPipe) companyId: number) {
+    return this.usersService.findUsersByCompany(companyId);
   }
 
   /**
@@ -92,15 +62,15 @@ export class UsersController {
    */
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) id: number, 
-    @Body() updateUserDto: UpdateUserDto
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.usersService.updateUser(id, updateUserDto);
   }
 
   /**
    * Assign a user to a company
-   * Use this endpoint to assign a company after user creation
+   * NOTE: Must be declared BEFORE @Patch(':id') to avoid route conflict
    */
   @Patch(':id/assign-company/:companyId')
   assignCompany(
@@ -112,19 +82,11 @@ export class UsersController {
 
   /**
    * Remove a user from their company
-   * Sets the company relationship to null
+   * NOTE: Must be declared BEFORE @Patch(':id') to avoid route conflict
    */
   @Patch(':id/remove-company')
   removeCompany(@Param('id', ParseIntPipe) userId: number) {
     return this.usersService.removeUserFromCompany(userId);
-  }
-
-  /**
-   * Get all users belonging to a specific company
-   */
-  @Get('company/:companyId')
-  getUsersByCompany(@Param('companyId', ParseIntPipe) companyId: number) {
-    return this.usersService.findUsersByCompany(companyId);
   }
 
   /**

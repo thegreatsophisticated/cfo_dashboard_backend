@@ -1,4 +1,4 @@
-import { IsOptional, IsNumber, Min, MinLength, IsNotEmpty } from 'class-validator';
+import { IsOptional, IsNumber, Min, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class FilterUserDto {
@@ -9,8 +9,7 @@ export class FilterUserDto {
   isMarried?: boolean | string;
 
   @IsOptional()
-  @IsNotEmpty({ message: 'Name is required' })
-  @MinLength(4,{message: 'Name must be at least 4 characters long' })
+  @IsString()
   name?: string;
 
   @IsOptional()

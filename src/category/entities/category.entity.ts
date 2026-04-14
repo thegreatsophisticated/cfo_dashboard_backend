@@ -1,31 +1,28 @@
-
-
 // import { Transaction } from "src/transaction/entities/transaction.entity";
 // import { User } from "src/users/entities/user.entity";
 
+import { Transaction } from '../../transaction/entities/transaction.entity';
+import { User } from '../../users/entities/user.entity';
 
-import { Transaction } from "../../transaction/entities/transaction.entity";
-import { User } from "../../users/entities/user.entity";
-
-import { 
-  Column, 
-  CreateDateColumn, 
-  DeleteDateColumn, 
-  Entity, 
-  ManyToOne, 
-  OneToMany, 
-  PrimaryGeneratedColumn, 
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
   Index,
   Tree,
   TreeChildren,
-  TreeParent
-} from "typeorm";
+  TreeParent,
+} from 'typeorm';
 
 export enum CategoryLevel {
-  MAIN = 'main',           // Level 1: e.g., "Capital", "Retained Earnings"
-  SUB = 'sub',             // Level 2: e.g., "Share Capital", "General Reserves"
-  SUB_SUB = 'sub_sub'      // Level 3: e.g., "Issued Subscribed & Paid Up Share Capital"
+  MAIN = 'main', // Level 1: e.g., "Capital", "Retained Earnings"
+  SUB = 'sub', // Level 2: e.g., "Share Capital", "General Reserves"
+  SUB_SUB = 'sub_sub', // Level 3: e.g., "Issued Subscribed & Paid Up Share Capital"
 }
 
 export enum CategoryType {
@@ -34,11 +31,11 @@ export enum CategoryType {
   EQUITY = 'equity',
   REVENUE = 'revenue',
   EXPENSE = 'expense',
-  COST_OF_SALES = 'cost_of_sales'
+  COST_OF_SALES = 'cost_of_sales',
 }
 
 @Entity('categories')
-@Tree("materialized-path")
+@Tree('materialized-path')
 @Index(['code'])
 @Index(['level'])
 @Index(['categoryType'])
@@ -47,8 +44,7 @@ export class Category {
   id: number;
 
   // Unique category code (e.g., 100, 1000, 100010)
-  @Column({ unique: true ,nullable: true })
-
+  @Column({ unique: true, nullable: true })
   code: string;
 
   @Column()
@@ -61,7 +57,7 @@ export class Category {
   @Column({
     type: 'enum',
     enum: CategoryLevel,
-    default: CategoryLevel.MAIN
+    default: CategoryLevel.MAIN,
   })
   level: CategoryLevel;
 
@@ -69,7 +65,7 @@ export class Category {
   @Column({
     type: 'enum',
     enum: CategoryType,
-    nullable: true
+    nullable: true,
   })
   categoryType: CategoryType;
 
@@ -112,12 +108,12 @@ export class Category {
   getFullPath(): string {
     const paths: string[] = [this.name];
     let current = this.parent;
-    
+
     while (current) {
       paths.unshift(current.name);
       current = current.parent;
     }
-    
+
     return paths.join(' > ');
   }
 

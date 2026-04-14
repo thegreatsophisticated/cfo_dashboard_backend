@@ -1,32 +1,32 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateFullSchema1738683847000 implements MigrationInterface {
-    name = 'CreateFullSchema1738683847000'
+  name = 'CreateFullSchema1738683847000';
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        // Create ENUM types first
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    // Create ENUM types first
+    await queryRunner.query(`
             CREATE TYPE "public"."transactions_transactiontype_enum" AS ENUM('debit', 'credit')
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE TYPE "public"."transactions_status_enum" AS ENUM('pending', 'completed', 'reconciled', 'cancelled')
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE TYPE "public"."transactions_paymentmethod_enum" AS ENUM('cash', 'bank_transfer', 'cheque', 'mobile_money', 'credit_card', 'debit_card', 'other')
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE TYPE "public"."categories_level_enum" AS ENUM('main', 'sub', 'sub_sub')
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE TYPE "public"."categories_categorytype_enum" AS ENUM('asset', 'liability', 'equity', 'revenue', 'expense', 'cost_of_sales')
         `);
 
-        // Create Users table
-        await queryRunner.query(`
+    // Create Users table
+    await queryRunner.query(`
             CREATE TABLE "users" (
                 "id" SERIAL NOT NULL,
                 "email" character varying NOT NULL,
@@ -42,8 +42,8 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             )
         `);
 
-        // Create Profiles table
-        await queryRunner.query(`
+    // Create Profiles table
+    await queryRunner.query(`
             CREATE TABLE "profiles" (
                 "id" SERIAL NOT NULL,
                 "bio" text,
@@ -58,8 +58,8 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             )
         `);
 
-        // Create Companies table
-        await queryRunner.query(`
+    // Create Companies table
+    await queryRunner.query(`
             CREATE TABLE "companies" (
                 "id" SERIAL NOT NULL,
                 "name" character varying NOT NULL,
@@ -78,8 +78,8 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             )
         `);
 
-        // Create Categories table
-        await queryRunner.query(`
+    // Create Categories table
+    await queryRunner.query(`
             CREATE TABLE "categories" (
                 "id" SERIAL NOT NULL,
                 "code" character varying NOT NULL,
@@ -98,13 +98,13 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             )
         `);
 
-        // Create index on category code
-        await queryRunner.query(`
+    // Create index on category code
+    await queryRunner.query(`
             CREATE INDEX "IDX_categories_code" ON "categories" ("code")
         `);
 
-        // Create Transactions table
-        await queryRunner.query(`
+    // Create Transactions table
+    await queryRunner.query(`
             CREATE TABLE "transactions" (
                 "id" SERIAL NOT NULL,
                 "date" date NOT NULL,
@@ -138,33 +138,33 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             )
         `);
 
-        // Create indexes on transactions
-        await queryRunner.query(`
+    // Create indexes on transactions
+    await queryRunner.query(`
             CREATE INDEX "IDX_transactions_company_date" ON "transactions" ("companyId", "date")
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE INDEX "IDX_transactions_company_category" ON "transactions" ("companyId", "categoryId")
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE INDEX "IDX_transactions_company_type" ON "transactions" ("companyId", "transactionType")
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE INDEX "IDX_transactions_company_status" ON "transactions" ("companyId", "status")
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE INDEX "IDX_transactions_financial_period" ON "transactions" ("financialYear", "financialPeriod")
         `);
-        
-        await queryRunner.query(`
+
+    await queryRunner.query(`
             CREATE INDEX "IDX_transactions_date" ON "transactions" ("date")
         `);
 
-        // Add foreign key constraints
-        await queryRunner.query(`
+    // Add foreign key constraints
+    await queryRunner.query(`
             ALTER TABLE "profiles" 
             ADD CONSTRAINT "FK_profiles_users" 
             FOREIGN KEY ("userId") 
@@ -173,7 +173,7 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             ON UPDATE NO ACTION
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "categories" 
             ADD CONSTRAINT "FK_categories_parent" 
             FOREIGN KEY ("parentId") 
@@ -182,7 +182,7 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             ON UPDATE NO ACTION
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "transactions" 
             ADD CONSTRAINT "FK_transactions_company" 
             FOREIGN KEY ("companyId") 
@@ -191,7 +191,7 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             ON UPDATE NO ACTION
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "transactions" 
             ADD CONSTRAINT "FK_transactions_category" 
             FOREIGN KEY ("categoryId") 
@@ -200,7 +200,7 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             ON UPDATE NO ACTION
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "transactions" 
             ADD CONSTRAINT "FK_transactions_createdBy" 
             FOREIGN KEY ("createdById") 
@@ -209,7 +209,7 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             ON UPDATE NO ACTION
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "transactions" 
             ADD CONSTRAINT "FK_transactions_reconciledBy" 
             FOREIGN KEY ("reconciledById") 
@@ -217,38 +217,66 @@ export class CreateFullSchema1738683847000 implements MigrationInterface {
             ON DELETE NO ACTION 
             ON UPDATE NO ACTION
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        // Drop foreign key constraints
-        await queryRunner.query(`ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_reconciledBy"`);
-        await queryRunner.query(`ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_createdBy"`);
-        await queryRunner.query(`ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_category"`);
-        await queryRunner.query(`ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_company"`);
-        await queryRunner.query(`ALTER TABLE "categories" DROP CONSTRAINT "FK_categories_parent"`);
-        await queryRunner.query(`ALTER TABLE "profiles" DROP CONSTRAINT "FK_profiles_users"`);
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    // Drop foreign key constraints
+    await queryRunner.query(
+      `ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_reconciledBy"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_createdBy"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_category"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "transactions" DROP CONSTRAINT "FK_transactions_company"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "categories" DROP CONSTRAINT "FK_categories_parent"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "profiles" DROP CONSTRAINT "FK_profiles_users"`,
+    );
 
-        // Drop indexes
-        await queryRunner.query(`DROP INDEX "public"."IDX_transactions_date"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_transactions_financial_period"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_transactions_company_status"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_transactions_company_type"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_transactions_company_category"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_transactions_company_date"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_categories_code"`);
+    // Drop indexes
+    await queryRunner.query(`DROP INDEX "public"."IDX_transactions_date"`);
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_transactions_financial_period"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_transactions_company_status"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_transactions_company_type"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_transactions_company_category"`,
+    );
+    await queryRunner.query(
+      `DROP INDEX "public"."IDX_transactions_company_date"`,
+    );
+    await queryRunner.query(`DROP INDEX "public"."IDX_categories_code"`);
 
-        // Drop tables
-        await queryRunner.query(`DROP TABLE "transactions"`);
-        await queryRunner.query(`DROP TABLE "categories"`);
-        await queryRunner.query(`DROP TABLE "companies"`);
-        await queryRunner.query(`DROP TABLE "profiles"`);
-        await queryRunner.query(`DROP TABLE "users"`);
+    // Drop tables
+    await queryRunner.query(`DROP TABLE "transactions"`);
+    await queryRunner.query(`DROP TABLE "categories"`);
+    await queryRunner.query(`DROP TABLE "companies"`);
+    await queryRunner.query(`DROP TABLE "profiles"`);
+    await queryRunner.query(`DROP TABLE "users"`);
 
-        // Drop ENUM types
-        await queryRunner.query(`DROP TYPE "public"."categories_categorytype_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."categories_level_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."transactions_paymentmethod_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."transactions_status_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."transactions_transactiontype_enum"`);
-    }
+    // Drop ENUM types
+    await queryRunner.query(
+      `DROP TYPE "public"."categories_categorytype_enum"`,
+    );
+    await queryRunner.query(`DROP TYPE "public"."categories_level_enum"`);
+    await queryRunner.query(
+      `DROP TYPE "public"."transactions_paymentmethod_enum"`,
+    );
+    await queryRunner.query(`DROP TYPE "public"."transactions_status_enum"`);
+    await queryRunner.query(
+      `DROP TYPE "public"."transactions_transactiontype_enum"`,
+    );
+  }
 }

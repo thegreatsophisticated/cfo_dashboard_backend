@@ -111,20 +111,19 @@ export class CategoryController {
   }
 
   // Soft delete a category
-@Delete(':id')
-async deleteCategory(
-  @Param('id', ParseIntPipe) id: number,
-): Promise<{ message: string }> {
-  await this.categoryService.deleteCategory(id);
-  return { message: 'Category successfully deleted' };
-}
+  @Delete(':id')
+  async deleteCategory(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<{ message: string }> {
+    await this.categoryService.deleteCategory(id);
+    return { message: 'Category successfully deleted' };
+  }
 
-// Restore a soft-deleted category
-@Patch(':id/restore')
-async restoreCategory(
-  @Param('id', ParseIntPipe) id: number,
-): Promise<Category> {
-  return this.categoryService.restoreCategory(id);
-}
-
+  // Restore a soft-deleted category
+  @Patch(':id/restore')
+  async restoreCategory(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Category> {
+    return this.categoryService.restoreCategory(id);
+  }
 }

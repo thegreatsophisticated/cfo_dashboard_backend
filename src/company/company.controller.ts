@@ -33,18 +33,14 @@
 //   }
 // }
 
-
-
-
-
-// import { 
-//   Controller, 
-//   Get, 
-//   Post, 
-//   Body, 
-//   Patch, 
-//   Param, 
-//   Delete, 
+// import {
+//   Controller,
+//   Get,
+//   Post,
+//   Body,
+//   Patch,
+//   Param,
+//   Delete,
 //   Query,
 //   ParseIntPipe,
 //   HttpCode,
@@ -135,7 +131,7 @@
 //    */
 //   @Patch(':id')
 //   update(
-//     @Param('id', ParseIntPipe) id: number, 
+//     @Param('id', ParseIntPipe) id: number,
 //     @Body() updateCompanyDto: UpdateCompanyDto
 //   ) {
 //     return this.companyService.update(id, updateCompanyDto);
@@ -168,14 +164,14 @@
 //   }
 // }
 
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
   Query,
   ParseIntPipe,
   HttpCode,
@@ -187,8 +183,6 @@ import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { FilterCompanyDto } from './dto/filter-company.dto';
 
-
-
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/users/entities/user.entity';
@@ -196,7 +190,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('company')
-@UseGuards(JwtAuthGuard , RolesGuard ) // Apply authentication and role guards
+@UseGuards(JwtAuthGuard, RolesGuard) // Apply authentication and role guards
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
@@ -314,7 +308,7 @@ export class CompanyController {
    */
   @Patch(':id')
   update(
-    @Param('id', ParseIntPipe) id: number, 
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCompanyDto: UpdateCompanyDto,
     @CurrentUser() currentUser: User,
   ) {

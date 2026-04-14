@@ -68,58 +68,69 @@
 //     deletedAt: Date;
 // }
 
-import { Category } from "src/category/entities/category.entity";
-import { Company } from "src/company/entities/company.entity";
-import { Profile } from "src/profiles/entities/profile.entity";
-import { Transaction } from "src/transaction/entities/transaction.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Category } from 'src/category/entities/category.entity';
+import { Company } from 'src/company/entities/company.entity';
+import { Profile } from 'src/profiles/entities/profile.entity';
+import { Transaction } from 'src/transaction/entities/transaction.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
-    
-    @Column({ nullable: false, type: 'varchar' })
-    name: string;
-    
-    @Column({ nullable: false, type: 'varchar', unique: true })
-    email: string;
-    
-    @Column({ nullable: false, type: 'varchar', unique: true })
-    phone: string;
-    
-    @Column({ nullable: false, type: 'varchar' })
-    password: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ default: 'user', nullable: false, type: 'varchar' })
-    role: string;
+  @Column({ nullable: false, type: 'varchar' })
+  name: string;
 
-    @OneToOne(() => Profile, (profile) => profile.user, {
-        cascade: ['insert', 'update'],
-        eager: true,
-    })
-    profile?: Profile;
+  @Column({ nullable: false, type: 'varchar', unique: true })
+  email: string;
 
-    // NEW: Many-to-One relationship - User belongs to a Company
-    @ManyToOne(() => Company, (company) => company.employees, { nullable: true })
-    @JoinColumn({ name: 'companyId' })
-    company?: Company;
+  @Column({ nullable: false, type: 'varchar', unique: true })
+  phone: string;
 
-    @OneToMany(() => Company, (company) => company.createdBy)
-    companiesCreated?: Company[];
+  @Column({ nullable: false, type: 'varchar' })
+  password: string;
 
-    @OneToMany(() => Category, (category) => category.createdBy)
-    categories?: Category[];
-    
-    @OneToMany(() => Transaction, (transaction) => transaction.createdBy)
-    transactions?: Transaction[];
+  @Column({ default: 'user', nullable: false, type: 'varchar' })
+  role: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
-    
-    @UpdateDateColumn()
-    updatedAt: Date;
-    
-    @DeleteDateColumn()
-    deletedAt: Date;
+  @OneToOne(() => Profile, (profile) => profile.user, {
+    cascade: ['insert', 'update'],
+    eager: true,
+  })
+  profile?: Profile;
+
+  // NEW: Many-to-One relationship - User belongs to a Company
+  @ManyToOne(() => Company, (company) => company.employees, { nullable: true })
+  @JoinColumn({ name: 'companyId' })
+  company?: Company;
+
+  @OneToMany(() => Company, (company) => company.createdBy)
+  companiesCreated?: Company[];
+
+  @OneToMany(() => Category, (category) => category.createdBy)
+  categories?: Category[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.createdBy)
+  transactions?: Transaction[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

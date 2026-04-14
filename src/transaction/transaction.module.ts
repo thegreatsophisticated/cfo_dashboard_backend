@@ -18,7 +18,6 @@
 // })
 // export class TransactionModule {}
 
-
 // import { Module } from '@nestjs/common';
 // import { TransactionService } from './transaction.service';
 // import { TransactionController } from './transaction.controller';
@@ -44,7 +43,6 @@
 // })
 // export class TransactionModule {}
 
-
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TransactionService } from './transaction.service';
@@ -60,7 +58,7 @@ import { RecurringTransactionService } from './services/recurring-transaction.se
 
 @Module({
   controllers: [TransactionController],
-  providers: [TransactionService, RecurringTransactionService ],
+  providers: [TransactionService, RecurringTransactionService],
   exports: [TransactionService, RecurringTransactionService],
   imports: [
     ScheduleModule.forRoot(), // Enable scheduling
@@ -68,7 +66,7 @@ import { RecurringTransactionService } from './services/recurring-transaction.se
     CompanyModule,
     CategoryModule,
     AuthModule,
-    TypeOrmModule.forFeature([Transaction, User])
+    TypeOrmModule.forFeature([Transaction, User]),
   ],
 })
 export class TransactionModule {}

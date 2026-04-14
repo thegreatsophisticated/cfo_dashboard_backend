@@ -88,7 +88,7 @@
 // public async update(id: number, updateCompanyDto: UpdateCompanyDto) {
 //   // Check if company exists
 //   const company = await this.companyRepository.findOne({ where: { id } });
-  
+
 //   if (!company) {
 //     throw new NotFoundException(`Company with ID ${id} not found`);
 //   }
@@ -129,7 +129,7 @@
 //   public async remove(id: number) {
 //     // Check if company exists
 //     const company = await this.companyRepository.findOne({ where: { id } });
-    
+
 //     if (!company) {
 //       throw new NotFoundException(`Company with ID ${id} not found`);
 //     }
@@ -147,7 +147,7 @@
 //   // Optional: SOFT DELETE (if you have a deletedAt column)
 //   public async softRemove(id: number) {
 //     const company = await this.companyRepository.findOne({ where: { id } });
-    
+
 //     if (!company) {
 //       throw new NotFoundException(`Company with ID ${id} not found`);
 //     }
@@ -181,11 +181,6 @@
 //     };
 //   }
 // }
-
-
-
-
-
 
 // import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 // import { CreateCompanyDto } from './dto/create-company.dto';
@@ -332,25 +327,25 @@
 
 //   // HELPER METHOD - Find company by ID (simple)
 //   public async findCompanyByID(id: number) {
-//     const company = await this.companyRepository.findOne({ 
+//     const company = await this.companyRepository.findOne({
 //       where: { id },
 //       relations: ['createdBy', 'employees'],
 //     });
-    
+
 //     if (!company) {
 //       throw new NotFoundException(`Company with ID ${id} not found`);
 //     }
-    
+
 //     return company;
 //   }
 
 //   // UPDATE COMPANY
 //   public async update(id: number, updateCompanyDto: UpdateCompanyDto) {
-//     const company = await this.companyRepository.findOne({ 
+//     const company = await this.companyRepository.findOne({
 //       where: { id },
 //       relations: ['createdBy', 'employees'],
 //     });
-    
+
 //     if (!company) {
 //       throw new NotFoundException(`Company with ID ${id} not found`);
 //     }
@@ -382,11 +377,11 @@
 //       const user = await this.userRepository.findOne({
 //         where: { id: updateCompanyDto.createdBy },
 //       });
-      
+
 //       if (!user) {
 //         throw new NotFoundException(`User with ID ${updateCompanyDto.createdBy} not found`);
 //       }
-      
+
 //       company.createdBy = user;
 //     }
 
@@ -412,7 +407,7 @@
 //   // ADD EMPLOYEE TO COMPANY
 //   public async addEmployee(companyId: number, userId: number) {
 //     const company = await this.findCompanyByID(companyId);
-    
+
 //     const user = await this.userRepository.findOne({
 //       where: { id: userId },
 //       relations: ['company'],
@@ -441,7 +436,7 @@
 //   // REMOVE EMPLOYEE FROM COMPANY
 //   public async removeEmployee(companyId: number, userId: number) {
 //     const company = await this.findCompanyByID(companyId);
-    
+
 //     const user = await this.userRepository.findOne({
 //       where: { id: userId },
 //       relations: ['company'],
@@ -514,19 +509,19 @@
 //   // HELPER: Calculate company age
 //   private calculateCompanyAge(establishedDate: Date): number | null {
 //     if (!establishedDate) return null;
-    
+
 //     const now = new Date();
 //     const established = new Date(establishedDate);
 //     const diffTime = Math.abs(now.getTime() - established.getTime());
 //     const diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365.25));
-    
+
 //     return diffYears;
 //   }
 
 //   // SOFT DELETE
 //   public async softRemove(id: number) {
 //     const company = await this.companyRepository.findOne({ where: { id } });
-    
+
 //     if (!company) {
 //       throw new NotFoundException(`Company with ID ${id} not found`);
 //     }
@@ -542,11 +537,11 @@
 
 //   // HARD DELETE
 //   public async remove(id: number) {
-//     const company = await this.companyRepository.findOne({ 
+//     const company = await this.companyRepository.findOne({
 //       where: { id },
 //       relations: ['employees'],
 //     });
-    
+
 //     if (!company) {
 //       throw new NotFoundException(`Company with ID ${id} not found`);
 //     }
@@ -590,7 +585,7 @@
 //   // TOGGLE COMPANY ACTIVE STATUS
 //   public async toggleActiveStatus(id: number) {
 //     const company = await this.findCompanyByID(id);
-    
+
 //     company.isActive = !company.isActive;
 //     await this.companyRepository.save(company);
 
@@ -602,8 +597,12 @@
 //   }
 // }
 
-
-import { Injectable, NotFoundException, ConflictException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { Company } from './entities/company.entity';
@@ -614,31 +613,38 @@ import { FilterCompanyDto } from './dto/filter-company.dto';
 
 @Injectable()
 export class CompanyService {
-
   constructor(
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
 
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
   // CREATE COMPANY
-  public async createCompany(createCompanyDto: CreateCompanyDto, currentUser: User) {
-
-   
+  public async createCompany(
+    createCompanyDto: CreateCompanyDto,
+    currentUser: User,
+  ) {
     // Fetch user directly from repository
     const user = await this.userRepository.findOne({
       where: { id: createCompanyDto.createdBy },
     });
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${createCompanyDto.createdBy} not found`);
+      throw new NotFoundException(
+        `User with ID ${createCompanyDto.createdBy} not found`,
+      );
     }
 
     // Only allow users to create company for themselves, unless they're admin
-    if (currentUser.role !== 'admin' && currentUser.id !== createCompanyDto.createdBy) {
-      throw new ForbiddenException('You can only create companies for yourself');
+    if (
+      currentUser.role !== 'admin' &&
+      currentUser.id !== createCompanyDto.createdBy
+    ) {
+      throw new ForbiddenException(
+        'You can only create companies for yourself',
+      );
     }
 
     // Check if company with same name already exists
@@ -684,9 +690,8 @@ export class CompanyService {
 
   // READ ALL WITH FILTERING AND PAGINATION - ROLE-BASED ACCESS
   public async findAll(filters?: FilterCompanyDto, currentUser?: User) {
+    console.log('currentUser', currentUser);
 
-     console.log("currentUser",currentUser);
-     
     const where: FindOptionsWhere<Company> = {};
 
     // Apply filters
@@ -784,7 +789,9 @@ export class CompanyService {
 
     // Remove passwords from employees
     if (company.employees) {
-      company.employees = company.employees.map(({ password, ...employee }) => employee as any);
+      company.employees = company.employees.map(
+        ({ password, ...employee }) => employee as any,
+      );
     }
 
     return {
@@ -796,25 +803,29 @@ export class CompanyService {
 
   // HELPER METHOD - Find company by ID (simple)
   public async findCompanyByID(id: number) {
-    const company = await this.companyRepository.findOne({ 
+    const company = await this.companyRepository.findOne({
       where: { id },
       relations: ['createdBy', 'employees'],
     });
-    
+
     if (!company) {
       throw new NotFoundException(`Company with ID ${id} not found`);
     }
-    
+
     return company;
   }
 
   // UPDATE COMPANY - ROLE-BASED ACCESS
-  public async update(id: number, updateCompanyDto: UpdateCompanyDto, currentUser?: User) {
-    const company = await this.companyRepository.findOne({ 
+  public async update(
+    id: number,
+    updateCompanyDto: UpdateCompanyDto,
+    currentUser?: User,
+  ) {
+    const company = await this.companyRepository.findOne({
       where: { id },
       relations: ['createdBy', 'employees'],
     });
-    
+
     if (!company) {
       throw new NotFoundException(`Company with ID ${id} not found`);
     }
@@ -827,7 +838,9 @@ export class CompanyService {
       });
 
       if (!user || !user.company || user.company.id !== id) {
-        throw new ForbiddenException('You can only update your assigned company');
+        throw new ForbiddenException(
+          'You can only update your assigned company',
+        );
       }
     }
 
@@ -862,11 +875,13 @@ export class CompanyService {
       const user = await this.userRepository.findOne({
         where: { id: updateCompanyDto.createdBy },
       });
-      
+
       if (!user) {
-        throw new NotFoundException(`User with ID ${updateCompanyDto.createdBy} not found`);
+        throw new NotFoundException(
+          `User with ID ${updateCompanyDto.createdBy} not found`,
+        );
       }
-      
+
       company.createdBy = user;
     }
 
@@ -890,7 +905,11 @@ export class CompanyService {
   }
 
   // ADD EMPLOYEE TO COMPANY
-  public async addEmployee(companyId: number, userId: number, currentUser?: User) {
+  public async addEmployee(
+    companyId: number,
+    userId: number,
+    currentUser?: User,
+  ) {
     const company = await this.findCompanyByID(companyId);
 
     // If user is not admin, verify they belong to this company
@@ -901,10 +920,12 @@ export class CompanyService {
       });
 
       if (!user || !user.company || user.company.id !== companyId) {
-        throw new ForbiddenException('You can only manage employees in your assigned company');
+        throw new ForbiddenException(
+          'You can only manage employees in your assigned company',
+        );
       }
     }
-    
+
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['company'],
@@ -916,7 +937,9 @@ export class CompanyService {
 
     // Check if user already belongs to a company
     if (user.company) {
-      throw new ConflictException(`User already belongs to company: ${user.company.name}`);
+      throw new ConflictException(
+        `User already belongs to company: ${user.company.name}`,
+      );
     }
 
     // Assign user to company
@@ -931,7 +954,11 @@ export class CompanyService {
   }
 
   // REMOVE EMPLOYEE FROM COMPANY
-  public async removeEmployee(companyId: number, userId: number, currentUser?: User) {
+  public async removeEmployee(
+    companyId: number,
+    userId: number,
+    currentUser?: User,
+  ) {
     const company = await this.findCompanyByID(companyId);
 
     // If user is not admin, verify they belong to this company
@@ -942,10 +969,12 @@ export class CompanyService {
       });
 
       if (!user || !user.company || user.company.id !== companyId) {
-        throw new ForbiddenException('You can only manage employees in your assigned company');
+        throw new ForbiddenException(
+          'You can only manage employees in your assigned company',
+        );
       }
     }
-    
+
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['company'],
@@ -980,7 +1009,9 @@ export class CompanyService {
       });
 
       if (!user || !user.company || user.company.id !== companyId) {
-        throw new ForbiddenException('You can only view employees in your assigned company');
+        throw new ForbiddenException(
+          'You can only view employees in your assigned company',
+        );
       }
     }
 
@@ -990,7 +1021,9 @@ export class CompanyService {
     });
 
     // Remove passwords
-    const employeesWithoutPasswords = employees.map(({ password, ...employee }) => employee);
+    const employeesWithoutPasswords = employees.map(
+      ({ password, ...employee }) => employee,
+    );
 
     return {
       status: 200,
@@ -1023,7 +1056,9 @@ export class CompanyService {
       });
 
       if (!user || !user.company || user.company.id !== id) {
-        throw new ForbiddenException('You can only view statistics for your assigned company');
+        throw new ForbiddenException(
+          'You can only view statistics for your assigned company',
+        );
       }
     }
 
@@ -1042,12 +1077,12 @@ export class CompanyService {
   // HELPER: Calculate company age
   private calculateCompanyAge(establishedDate: Date): number | null {
     if (!establishedDate) return null;
-    
+
     const now = new Date();
     const established = new Date(establishedDate);
     const diffTime = Math.abs(now.getTime() - established.getTime());
     const diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365.25));
-    
+
     return diffYears;
   }
 
@@ -1058,7 +1093,7 @@ export class CompanyService {
     }
 
     const company = await this.companyRepository.findOne({ where: { id } });
-    
+
     if (!company) {
       throw new NotFoundException(`Company with ID ${id} not found`);
     }
@@ -1078,11 +1113,11 @@ export class CompanyService {
       throw new ForbiddenException('Only admins can delete companies');
     }
 
-    const company = await this.companyRepository.findOne({ 
+    const company = await this.companyRepository.findOne({
       where: { id },
       relations: ['employees'],
     });
-    
+
     if (!company) {
       throw new NotFoundException(`Company with ID ${id} not found`);
     }
@@ -1090,7 +1125,7 @@ export class CompanyService {
     // Check if company has employees
     if (company.employees && company.employees.length > 0) {
       throw new ConflictException(
-        `Cannot delete company with ${company.employees.length} employee(s). Remove employees first.`
+        `Cannot delete company with ${company.employees.length} employee(s). Remove employees first.`,
       );
     }
 
@@ -1139,10 +1174,12 @@ export class CompanyService {
       });
 
       if (!user || !user.company || user.company.id !== id) {
-        throw new ForbiddenException('You can only manage your assigned company');
+        throw new ForbiddenException(
+          'You can only manage your assigned company',
+        );
       }
     }
-    
+
     company.isActive = !company.isActive;
     await this.companyRepository.save(company);
 
