@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between } from 'typeorm';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { paginate, PaginationDto } from './dto/pagination.dto';
+import { PaginationDto, paginate } from './dto/pagination.dto';
 import { Transaction, TransactionStatus } from './entities/transaction.entity';
 import { UsersService } from 'src/users/users.service';
 import { CompanyService } from 'src/company/company.service';
