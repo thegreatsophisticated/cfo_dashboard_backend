@@ -1,148 +1,3 @@
-// import {
-//   Controller,
-//   Get,
-//   Post,
-//   Body,
-//   Patch,
-//   Param,
-//   Delete,
-//   Query,
-//   ParseIntPipe
-// } from '@nestjs/common';
-// import { TransactionService } from './transaction.service';
-// import { CreateTransactionDto } from './dto/create-transaction.dto';
-// import { UpdateTransactionDto } from './dto/update-transaction.dto';
-
-// @Controller('transactions')
-// export class TransactionController {
-//   constructor(private readonly transactionService: TransactionService) {}
-
-//   @Post()
-//   create(@Body() createTransactionDto: CreateTransactionDto) {
-//     return this.transactionService.createTransaction(createTransactionDto);
-//   }
-
-//   @Get()
-//   findAll() {
-//     return this.transactionService.findAllTransactions();
-//   }
-
-//   @Get('company/:companyId')
-//   findByCompany(@Param('companyId', ParseIntPipe) companyId: number) {
-//     return this.transactionService.findTransactionsByCompany(companyId);
-//   }
-
-//   @Get('category/:categoryId')
-//   findByCategory(@Param('categoryId', ParseIntPipe) categoryId: number) {
-//     return this.transactionService.findTransactionsByCategory(categoryId);
-//   }
-
-//   @Get('date-range/:companyId')
-//   findByDateRange(
-//     @Param('companyId', ParseIntPipe) companyId: number,
-//     @Query('startDate') startDate: string,
-//     @Query('endDate') endDate: string
-//   ) {
-//     return this.transactionService.findTransactionsByDateRange(companyId, startDate, endDate);
-//   }
-
-//   // Recurring Transactions Endpoints
-
-//   @Get('recurring')
-//   getRecurringTransactions() {
-//     return this.transactionService.getRecurringTransactions();
-//   }
-
-//   @Get('recurring/company/:companyId')
-//   getRecurringTransactionsByCompany(@Param('companyId', ParseIntPipe) companyId: number) {
-//     return this.transactionService.getRecurringTransactionsByCompany(companyId);
-//   }
-
-//   @Post('recurring/:id/execute')
-//   executeRecurringTransaction(@Param('id', ParseIntPipe) id: number) {
-//     return this.transactionService.executeRecurringTransaction(id);
-//   }
-
-//   // Financial Reports Endpoints - By Company
-
-//   @Get('reports/income-statement/:companyId')
-//   getIncomeStatement(
-//     @Param('companyId', ParseIntPipe) companyId: number,
-//     @Query('year', ParseIntPipe) year: number
-//   ) {
-//     return this.transactionService.getIncomeStatement(companyId, year);
-//   }
-
-//   @Get('reports/balance-sheet/:companyId')
-//   getBalanceSheet(
-//     @Param('companyId', ParseIntPipe) companyId: number,
-//     @Query('asOfDate') asOfDate: string
-//   ) {
-//     return this.transactionService.getBalanceSheet(companyId, asOfDate);
-//   }
-
-//   @Get('reports/cash-book/:companyId')
-//   getCashBook(
-//     @Param('companyId', ParseIntPipe) companyId: number,
-//     @Query('startDate') startDate: string,
-//     @Query('endDate') endDate: string
-//   ) {
-//     return this.transactionService.getCashBook(companyId, startDate, endDate);
-//   }
-
-//   // Global Financial Reports - All Companies
-
-//   @Get('reports/global/income-statement')
-//   getGlobalIncomeStatement(@Query('year', ParseIntPipe) year: number) {
-//     return this.transactionService.getGlobalIncomeStatement(year);
-//   }
-
-//   @Get('reports/global/balance-sheet')
-//   getGlobalBalanceSheet(@Query('asOfDate') asOfDate: string) {
-//     return this.transactionService.getGlobalBalanceSheet(asOfDate);
-//   }
-
-//   @Get('reports/global/cash-book')
-//   getGlobalCashBook(
-//     @Query('startDate') startDate: string,
-//     @Query('endDate') endDate: string
-//   ) {
-//     return this.transactionService.getGlobalCashBook(startDate, endDate);
-//   }
-
-//   @Get('reports/global/summary')
-//   getGlobalFinancialSummary(
-//     @Query('year', ParseIntPipe) year: number
-//   ) {
-//     return this.transactionService.getGlobalFinancialSummary(year);
-//   }
-
-//   @Get('reports/global/company-comparison')
-//   getCompanyComparison(
-//     @Query('year', ParseIntPipe) year: number
-//   ) {
-//     return this.transactionService.getCompanyComparison(year);
-//   }
-
-//   @Get(':id')
-//   findOne(@Param('id', ParseIntPipe) id: number) {
-//     return this.transactionService.findTransactionById(id);
-//   }
-
-//   @Patch(':id')
-//   update(
-//     @Param('id', ParseIntPipe) id: number,
-//     @Body() updateTransactionDto: UpdateTransactionDto
-//   ) {
-//     return this.transactionService.updateTransaction(id, updateTransactionDto);
-//   }
-
-//   @Delete(':id')
-//   remove(@Param('id', ParseIntPipe) id: number) {
-//     return this.transactionService.deleteTransaction(id);
-//   }
-// }
-
 import {
   Controller,
   Get,
@@ -160,6 +15,7 @@ import {
 import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { PaginationDto } from './dto/pagination.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
@@ -171,11 +27,6 @@ import { User } from 'src/users/entities/user.entity';
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
-  /**
-   * Create a transaction
-   * User: Can only create for their assigned company
-   * Admin: Can create for any company
-   */
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(
@@ -188,101 +39,87 @@ export class TransactionController {
     );
   }
 
-  /**
-   * Get all transactions
-   * User: Only transactions from their assigned company
-   * Admin: All transactions
-   */
+  // GET /transactions?page=1&limit=10
   @Get()
-  findAll(@CurrentUser() currentUser: User) {
-    return this.transactionService.findAllTransactions(currentUser);
+  findAll(
+    @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.transactionService.findAllTransactions(currentUser, pagination);
   }
 
-  /**
-   * Get transactions by company
-   * User: Only if it's their assigned company
-   * Admin: Any company
-   */
+  // GET /transactions/company/:companyId?page=1&limit=10
   @Get('company/:companyId')
   findByCompany(
     @Param('companyId', ParseIntPipe) companyId: number,
     @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
   ) {
     return this.transactionService.findTransactionsByCompany(
       companyId,
       currentUser,
+      pagination,
     );
   }
 
-  /**
-   * Get transactions by category
-   * User: Only from their assigned company
-   * Admin: All companies
-   */
+  // GET /transactions/category/:categoryId?page=1&limit=10
   @Get('category/:categoryId')
   findByCategory(
     @Param('categoryId', ParseIntPipe) categoryId: number,
     @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
   ) {
     return this.transactionService.findTransactionsByCategory(
       categoryId,
       currentUser,
+      pagination,
     );
   }
 
-  /**
-   * Get transactions by date range
-   * User: Only if it's their assigned company
-   * Admin: Any company
-   */
+  // GET /transactions/date-range/:companyId?startDate=...&endDate=...&page=1&limit=10
   @Get('date-range/:companyId')
   findByDateRange(
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
     @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
   ) {
     return this.transactionService.findTransactionsByDateRange(
       companyId,
       startDate,
       endDate,
       currentUser,
+      pagination,
     );
   }
 
-  // Recurring Transactions Endpoints
-
-  /**
-   * Get all recurring transactions
-   * User: Only from their assigned company
-   * Admin: All companies
-   */
+  // GET /transactions/recurring?page=1&limit=10
   @Get('recurring')
-  getRecurringTransactions(@CurrentUser() currentUser: User) {
-    return this.transactionService.getRecurringTransactions(currentUser);
+  getRecurringTransactions(
+    @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.transactionService.getRecurringTransactions(
+      currentUser,
+      pagination,
+    );
   }
 
-  /**
-   * Get recurring transactions by company
-   * User: Only if it's their assigned company
-   * Admin: Any company
-   */
+  // GET /transactions/recurring/company/:companyId?page=1&limit=10
   @Get('recurring/company/:companyId')
   getRecurringTransactionsByCompany(
     @Param('companyId', ParseIntPipe) companyId: number,
     @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
   ) {
     return this.transactionService.getRecurringTransactionsByCompany(
       companyId,
       currentUser,
+      pagination,
     );
   }
 
-  /**
-   * Execute a recurring transaction
-   * User: Only if transaction belongs to their assigned company
-   * Admin: Any company
-   */
   @Post('recurring/:id/execute')
   @HttpCode(HttpStatus.CREATED)
   executeRecurringTransaction(
@@ -292,13 +129,7 @@ export class TransactionController {
     return this.transactionService.executeRecurringTransaction(id, currentUser);
   }
 
-  // Financial Reports Endpoints - By Company
-
-  /**
-   * Get income statement for a company
-   * User: Only for their assigned company
-   * Admin: Any company
-   */
+  // GET /transactions/reports/income-statement/:companyId?year=2024
   @Get('reports/income-statement/:companyId')
   getIncomeStatement(
     @Param('companyId', ParseIntPipe) companyId: number,
@@ -312,11 +143,7 @@ export class TransactionController {
     );
   }
 
-  /**
-   * Get balance sheet for a company
-   * User: Only for their assigned company
-   * Admin: Any company
-   */
+  // GET /transactions/reports/balance-sheet/:companyId?asOfDate=...
   @Get('reports/balance-sheet/:companyId')
   getBalanceSheet(
     @Param('companyId', ParseIntPipe) companyId: number,
@@ -330,32 +157,25 @@ export class TransactionController {
     );
   }
 
-  /**
-   * Get cash book for a company
-   * User: Only for their assigned company
-   * Admin: Any company
-   */
+  // GET /transactions/reports/cash-book/:companyId?startDate=...&endDate=...&page=1&limit=10
   @Get('reports/cash-book/:companyId')
   getCashBook(
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
     @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
   ) {
     return this.transactionService.getCashBook(
       companyId,
       startDate,
       endDate,
       currentUser,
+      pagination,
     );
   }
 
-  // Global Financial Reports - Admin Only
-
-  /**
-   * Get global income statement
-   * Admin only
-   */
+  // GET /transactions/reports/global/income-statement?year=2024
   @Get('reports/global/income-statement')
   @Roles('admin')
   getGlobalIncomeStatement(
@@ -365,10 +185,7 @@ export class TransactionController {
     return this.transactionService.getGlobalIncomeStatement(year, currentUser);
   }
 
-  /**
-   * Get global balance sheet
-   * Admin only
-   */
+  // GET /transactions/reports/global/balance-sheet?asOfDate=...
   @Get('reports/global/balance-sheet')
   @Roles('admin')
   getGlobalBalanceSheet(
@@ -378,28 +195,23 @@ export class TransactionController {
     return this.transactionService.getGlobalBalanceSheet(asOfDate, currentUser);
   }
 
-  /**
-   * Get global cash book
-   * Admin only
-   */
+  // GET /transactions/reports/global/cash-book?startDate=...&endDate=...&page=1&limit=10
   @Get('reports/global/cash-book')
   @Roles('admin')
   getGlobalCashBook(
     @Query('startDate') startDate: string,
     @Query('endDate') endDate: string,
     @CurrentUser() currentUser: User,
+    @Query() pagination: PaginationDto,
   ) {
     return this.transactionService.getGlobalCashBook(
       startDate,
       endDate,
       currentUser,
+      pagination,
     );
   }
 
-  /**
-   * Get global financial summary
-   * Admin only
-   */
   @Get('reports/global/summary')
   @Roles('admin')
   getGlobalFinancialSummary(
@@ -409,10 +221,6 @@ export class TransactionController {
     return this.transactionService.getGlobalFinancialSummary(year, currentUser);
   }
 
-  /**
-   * Get company comparison
-   * Admin only
-   */
   @Get('reports/global/company-comparison')
   @Roles('admin')
   getCompanyComparison(
@@ -422,11 +230,7 @@ export class TransactionController {
     return this.transactionService.getCompanyComparison(year, currentUser);
   }
 
-  /**
-   * Get a specific transaction
-   * User: Only if transaction belongs to their assigned company
-   * Admin: Any transaction
-   */
+  // GET /transactions/:id
   @Get(':id')
   findOne(
     @Param('id', ParseIntPipe) id: number,
@@ -435,11 +239,6 @@ export class TransactionController {
     return this.transactionService.findTransactionById(id, currentUser);
   }
 
-  /**
-   * Update a transaction
-   * User: Only if transaction belongs to their assigned company
-   * Admin: Any transaction
-   */
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -453,11 +252,6 @@ export class TransactionController {
     );
   }
 
-  /**
-   * Delete a transaction
-   * User: Only if transaction belongs to their assigned company
-   * Admin: Any transaction
-   */
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   remove(
@@ -467,9 +261,6 @@ export class TransactionController {
     return this.transactionService.deleteTransaction(id, currentUser);
   }
 
-  /**
-   * Get recurring transaction status
-   */
   @Get('recurring/:id/status')
   getRecurringStatus(
     @Param('id', ParseIntPipe) id: number,
@@ -481,9 +272,6 @@ export class TransactionController {
     );
   }
 
-  /**
-   * Pause recurring transaction
-   */
   @Patch('recurring/:id/pause')
   pauseRecurring(
     @Param('id', ParseIntPipe) id: number,
@@ -492,9 +280,6 @@ export class TransactionController {
     return this.transactionService.pauseRecurringTransaction(id, currentUser);
   }
 
-  /**
-   * Resume recurring transaction
-   */
   @Patch('recurring/:id/resume')
   resumeRecurring(
     @Param('id', ParseIntPipe) id: number,

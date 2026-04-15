@@ -15,6 +15,7 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() createAuthDto: CreateAuthDto) {
+    console.log('Login attempt:', createAuthDto);
     return this.authService.userLogin(createAuthDto);
   }
 
