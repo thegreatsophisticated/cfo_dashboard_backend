@@ -2,128 +2,147 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
+  Delete,
   Body,
   Param,
   Query,
   UseGuards,
-  Request,
-  HttpException,
-  HttpStatus,
   ParseIntPipe,
-  Delete,
-  Patch,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import {
+  CreateMainCategoryDto,
+  CreateSubCategoryDto,
   CreateSubSubCategoryDto,
-  CreateCategoryDto,
+  UpdateCategoryDto,
 } from './dto/create-category.dto';
-import { Category, CategoryLevel } from './entities/category.entity';
+import { Category, CategoryType } from './entities/category.entity';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @Controller('categories')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  // Get all main categories
+  // ── Reads (any authenticated user) ──
+  // Static routes must stay above the @Get(':id') routes
+
   @Get('main')
-  async getMainCategories(): Promise<Category[]> {
-    return this.categoryService.getMainCategories();
+  getMainCategories(
+    @Query('includeInactive') includeInactive?: string,
+  ): Promise<Category[]> {
+    return this.categoryService.getMainCategories(includeInactive === 'true');
   }
 
-  // Get sub categories by main category ID
   @Get('main/:mainCategoryId/sub')
-  async getSubCategories(
+  getSubCategories(
     @Param('mainCategoryId', ParseIntPipe) mainCategoryId: number,
+    @Query('includeInactive') includeInactive?: string,
   ): Promise<Category[]> {
-    return this.categoryService.getSubCategories(mainCategoryId);
+    return this.categoryService.getSubCategories(
+      mainCategoryId,
+      includeInactive === 'true',
+    );
   }
 
-  // Get sub-sub categories by sub category ID
   @Get('sub/:subCategoryId/sub-sub')
-  async getSubSubCategories(
+  getSubSubCategories(
     @Param('subCategoryId', ParseIntPipe) subCategoryId: number,
+    @Query('includeInactive') includeInactive?: string,
   ): Promise<Category[]> {
-    return this.categoryService.getSubSubCategories(subCategoryId);
+    return this.categoryService.getSubSubCategories(
+      subCategoryId,
+      includeInactive === 'true',
+    );
   }
 
-  // Get category hierarchy (tree structure)
   @Get('tree')
-  async getCategoryTree(): Promise<Category[]> {
+  getCategoryTree(): Promise<Category[]> {
     return this.categoryService.getCategoryTree();
   }
 
-  // Get all leaf categories (sub-sub level) for transaction selection
   @Get('leaf')
-  async getLeafCategories(): Promise<Category[]> {
+  getLeafCategories(): Promise<Category[]> {
     return this.categoryService.getLeafCategories();
   }
 
-  // Get category by ID with full hierarchy
-  @Get(':id')
-  async getCategoryById(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<Category> {
-    return this.categoryService.getCategoryById(id);
+  @Get('validate/code')
+  async validateCode(@Query('code') code: string) {
+    return { available: !(await this.categoryService.codeExists(code)) };
   }
 
-  // Get category hierarchy path (breadcrumb)
+  @Get('next-main-code')
+  async getNextMainCode(@Query('categoryType') categoryType?: CategoryType) {
+    return {
+      nextCode: await this.categoryService.getNextMainCode(categoryType),
+    };
+  }
+
+  @Get('parent/:parentId/next-code')
+  async getNextCode(@Param('parentId', ParseIntPipe) parentId: number) {
+    return {
+      nextCode: await this.categoryService.getNextAvailableCode(parentId),
+    };
+  }
+
   @Get(':id/path')
-  async getCategoryPath(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<{ main: Category; sub: Category; subSub: Category }> {
+  getCategoryPath(@Param('id', ParseIntPipe) id: number) {
     return this.categoryService.getCategoryPath(id);
   }
 
-  // Create a new sub-sub category
+  @Get(':id')
+  getCategoryById(@Param('id', ParseIntPipe) id: number): Promise<Category> {
+    return this.categoryService.getCategoryById(id);
+  }
+
+  // ── Writes (admin only) ──
+
+  @Post('main')
+  @Roles('admin')
+  createMain(@Body() dto: CreateMainCategoryDto, @CurrentUser() user: User) {
+    return this.categoryService.createMainCategory(dto, user);
+  }
+
+  @Post('sub')
+  @Roles('admin')
+  createSub(@Body() dto: CreateSubCategoryDto, @CurrentUser() user: User) {
+    return this.categoryService.createSubCategory(dto, user);
+  }
+
   @Post('sub-sub')
-  async createSubSubCategory(
-    @Body() createDto: CreateSubSubCategoryDto,
-    @Request() req,
-  ): Promise<Category> {
-    return this.categoryService.createSubSubCategory(createDto, req.user);
+  @Roles('admin')
+  createSubSub(
+    @Body() dto: CreateSubSubCategoryDto,
+    @CurrentUser() user: User,
+  ) {
+    return this.categoryService.createSubSubCategory(dto, user);
   }
 
-  // Create a new category (any level)
-  @Post()
-  async createCategory(
-    @Body() createDto: CreateCategoryDto,
-    @Request() req,
-  ): Promise<Category> {
-    return this.categoryService.createCategory(createDto, req.user);
-  }
-
-  // Validate category code uniqueness
-  @Get('validate/code')
-  async validateCode(
-    @Query('code') code: string,
-  ): Promise<{ available: boolean }> {
-    const exists = await this.categoryService.codeExists(code);
-    return { available: !exists };
-  }
-
-  // Get next available code for a parent category
-  @Get('parent/:parentId/next-code')
-  async getNextCode(
-    @Param('parentId', ParseIntPipe) parentId: number,
-  ): Promise<{ nextCode: string }> {
-    const nextCode = await this.categoryService.getNextAvailableCode(parentId);
-    return { nextCode };
-  }
-
-  // Soft delete a category
-  @Delete(':id')
-  async deleteCategory(
+  // Edit main / sub / sub-sub: the level is read from the record itself
+  @Patch(':id')
+  @Roles('admin')
+  update(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<{ message: string }> {
+    @Body() dto: UpdateCategoryDto,
+  ): Promise<Category> {
+    return this.categoryService.updateCategory(id, dto);
+  }
+
+  @Patch(':id/restore')
+  @Roles('admin')
+  restore(@Param('id', ParseIntPipe) id: number) {
+    return this.categoryService.restoreCategory(id);
+  }
+
+  @Delete(':id')
+  @Roles('admin')
+  async remove(@Param('id', ParseIntPipe) id: number) {
     await this.categoryService.deleteCategory(id);
     return { message: 'Category successfully deleted' };
-  }
-
-  // Restore a soft-deleted category
-  @Patch(':id/restore')
-  async restoreCategory(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<Category> {
-    return this.categoryService.restoreCategory(id);
   }
 }
