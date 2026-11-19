@@ -1132,6 +1132,30 @@ export class TransactionService {
     const total = allCompanyReports.length;
     const paginatedCompanies = allCompanyReports.slice(skip, skip + limit);
 
+    // Individual dated transactions for the Cash Inflows / Cash Outflows
+    // sections of the Consolidated Cash Flow Statement.
+    // Not paginated, so the lists always add up to the totals above.
+    // `transactions` is already ordered by date ASC from the query.
+    const toStatementLine = (t: Transaction) => ({
+      id: t.id,
+      date: t.date,
+      description: t.description,
+      referenceNumber: t.referenceNumber,
+      counterparty: t.counterparty,
+      category: t.category.getFullPath(),
+      paymentMethod: t.paymentMethod,
+      companyId: t.company.id,
+      companyName: t.company.name,
+      amount: Number(t.totalAmount),
+    });
+
+    const cashInLines = transactions
+      .filter((t) => t.transactionType === 'debit')
+      .map(toStatementLine);
+    const cashOutLines = transactions
+      .filter((t) => t.transactionType === 'credit')
+      .map(toStatementLine);
+
     return {
       status: 200,
       message: 'Global Cash Book',
@@ -1140,6 +1164,10 @@ export class TransactionService {
         totalCashIn,
         totalCashOut,
         netCashFlow: totalCashIn - totalCashOut,
+      },
+      statement: {
+        cashIn: cashInLines,
+        cashOut: cashOutLines,
       },
       ...paginate(paginatedCompanies, total, page, limit),
     };
